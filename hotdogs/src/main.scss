@@ -1,0 +1,16 @@
+@import 'vars.scss';
+
+*{
+	margin:0;
+	padding:0;
+}
+
+body{
+	max-width: $mainWidth;
+	margin:auto;
+}
+
+a{
+	text-decoration: none;
+	color: #2e2e2e;
+}

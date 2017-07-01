@@ -1,0 +1,68 @@
+.dish__item{
+	width: 50%;
+	min-height: 575px;
+	box-sizing: border-box;
+
+}
+
+.dish__item_text_left,
+.dish__item_pic_left{
+	float:left;
+}
+
+.dish__item_text_right,
+.dish__item_pic_right{
+	float:right;
+}
+
+.dish__item_text_right,
+.dish__item_text_left{
+	padding: 213px 140px 15px 136px;
+}
+
+.dish__item_pic_left,
+.dish__item_pic_right{
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+.pic1{
+	background-image: url("../img/Layer-28.png");
+}
+.pic2{
+	background-image: url("../img/Layer-29.png");
+}
+.pic3{
+	background-image: url("../img/Layer-30.png");
+}
+
+@media (max-width:1024px){
+
+	.dish__item_text_right,
+	.dish__item_text_left{
+	    padding: 100px 40px 15px 80px;
+	}
+
+	.dish__item{
+		min-height:375px;
+	}
+
+}
+
+@media (max-width:700px){
+
+	.dish__item{
+		min-height:auto;
+	}
+
+	.dish__item_text_right,
+	.dish__item_text_left{
+	    padding: 50px 40px 15px 50px;
+	}
+
+	.dish__item_pic_left,
+	.dish__item_pic_right{
+		min-height:200px;
+	}
+
+}

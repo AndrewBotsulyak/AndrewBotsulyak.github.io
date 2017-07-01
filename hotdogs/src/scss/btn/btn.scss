@@ -1,0 +1,22 @@
+@import '../../vars.scss';
+
+
+.btn{
+	background-color: $mainColor;
+	color: #fff;
+	font-family: 'OpenSans-Semibold';
+	font-size: 20px;
+	border-radius:5px;
+	height: 65px;
+	line-height: 65px;
+	text-align: center;
+	padding: 0 37px;
+	display: block;
+	cursor:pointer;
+	border: 0;
+	letter-spacing: -1px;
+
+	&:hover{
+		background-color: $btnHover;
+	}
+}

@@ -1,0 +1,18 @@
+@import '../../../vars.scss';
+
+
+.more-container{
+	max-width: 845px;
+	margin:auto;
+	margin-top: 116px;
+
+	&:after{
+		@include after;
+	}
+}
+
+@media (max-width:700px){
+	.more-container{
+	    margin-top: 50px;
+	}
+}

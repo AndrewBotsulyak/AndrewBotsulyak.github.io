@@ -1,0 +1,14 @@
+$mainWidth: 1440px;
+$mainColor: #286782;
+
+	//btn
+$btnHover: #2f7999;
+
+// hot-dogs-row__pic 
+$headerPicWidth: 250px;
+
+@mixin after{
+	content:' ';
+	clear:both;
+	display: table;
+}

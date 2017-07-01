@@ -1,0 +1,32 @@
+.dish-name{
+	font-family: 'OpenSans-Bold';
+	font-size: 23px;
+	position: relative;
+	color: #555559;
+	letter-spacing: -1px;
+
+	&:before{
+		content:' ';
+		display: block;
+		position: absolute;
+		top: 50%;
+		left: -50px;
+		width: 30px;
+		border: 2px solid #84959c;
+	}
+}
+
+@media(max-width:700px){
+	.dish-name{
+		font-size: 19px;
+    	height: 130px;
+	
+		&:before{
+			top:12px;
+			width: 20px;
+			left:-40px;
+		}
+
+	}
+
+}

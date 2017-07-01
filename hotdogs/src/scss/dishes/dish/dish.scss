@@ -1,0 +1,10 @@
+@import '../../../vars.scss';
+
+.dish{
+	width: 100%;
+	position: relative;
+
+	&:after{
+		@include after;
+	}
+}

@@ -1,0 +1,22 @@
+.dish-descr{
+	font-family: 'OpenSans-Light';
+	font-size: 19px;
+	color: #8e8e90;
+	line-height: 24px;
+	margin-top: 25px;
+	letter-spacing:-1px;
+
+}
+
+
+@media(max-width:700px){
+	.dish-descr{
+	    float: left;
+	    width: calc(100vw - 55px);
+	    margin-left: -25px;
+	}
+
+	.dish__item_text_right .dish-descr{
+		margin-left: calc(-50vw - 25px);
+	}
+}

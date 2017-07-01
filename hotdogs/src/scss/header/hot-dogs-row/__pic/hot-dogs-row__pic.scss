@@ -1,0 +1,13 @@
+.hot-dogs-row__pic{
+	float:left;
+	width: 250px;
+	height: 250px;
+	background-size: cover;
+}
+
+@media(max-width:700px){
+	.hot-dogs-row__pic{
+		width: 150px;
+		height: 150px;
+	}
+}

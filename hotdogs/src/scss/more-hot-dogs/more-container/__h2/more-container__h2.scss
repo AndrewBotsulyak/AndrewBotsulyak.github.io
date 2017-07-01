@@ -1,0 +1,16 @@
+.more-container__h2{
+	font-family: 'OpenSans-Light';
+	font-size: 58px;
+	color: #555559;
+	margin-top: 22px;
+	text-align: center;
+	letter-spacing:-4px;
+	line-height: 70px;
+}
+
+@media (max-width:700px){
+	.more-container__h2{
+	    font-size: 32px;
+	    letter-spacing: 0px;
+	}
+}

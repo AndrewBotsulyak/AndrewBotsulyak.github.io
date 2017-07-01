@@ -1,0 +1,9 @@
+#more-hot-dogs{
+	width: 100%;
+
+	&:before{
+		content:' ';
+		clear: both;
+		display: table;
+	}
+}

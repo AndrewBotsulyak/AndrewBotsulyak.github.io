@@ -1,0 +1,15 @@
+.link-nav{
+	display: block;
+	padding: 0 38px;
+	line-height: 105px;
+	letter-spacing: 2px;
+}
+
+
+@media (max-width:700px){
+	.link-nav{
+		color:white;
+		height: 50px;
+		line-height: 50px;
+	}
+}

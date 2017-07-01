@@ -1,0 +1,15 @@
+.hamburger{
+	display: none;
+}
+
+@media(max-width:700px){
+	.hamburger{
+		display: block;
+		width: 30px;
+		height: 30px;
+		
+	}
+	.hamburger-inner{
+		color: black;
+	}
+}

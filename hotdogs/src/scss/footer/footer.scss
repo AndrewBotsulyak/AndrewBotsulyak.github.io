@@ -1,0 +1,34 @@
+.footer{
+	width: 100%;
+	height: 74px;
+	color: #555559;
+	font-family: 'OpenSans-Regular';
+	font-size: 14px;
+	padding: 0 20px;
+	line-height: 74px;
+	background-color: #efefef;
+	box-sizing:border-box;
+}
+
+.all-rights{
+	float:left;
+	height: 100%;
+}
+
+.contacts{
+	float:right;
+}
+
+
+@media(max-width:800px){
+	.footer{
+		height: auto;
+		text-align: center;
+		line-height: 34px;
+	}
+
+	.contacts, .all-rights{
+		float:none;
+	}
+
+}

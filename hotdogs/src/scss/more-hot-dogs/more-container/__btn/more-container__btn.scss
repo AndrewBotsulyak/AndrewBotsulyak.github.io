@@ -1,0 +1,14 @@
+.more-container__btn{
+	//width: 310px;
+	margin:auto;
+	margin-top: 80px;
+	margin-bottom: 172px;
+	transform: translateX(8px);
+}
+
+@media (max-width:700px){
+	.more-container__btn{
+	    font-size: 16px;
+	    margin-bottom: 50px;
+	}
+}

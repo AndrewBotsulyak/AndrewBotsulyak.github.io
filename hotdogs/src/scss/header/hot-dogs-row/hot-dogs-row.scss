@@ -1,0 +1,63 @@
+@import '../../../vars.scss';
+
+.hot-dogs-row{
+	width: $headerPicWidth * 6;
+	position: relative;
+	overflow:hidden;
+	z-index: -1;
+}
+
+.hot-dogs-row:nth-child(2){
+	height: 231px;
+}
+
+
+.hot-dogs-top :nth-child(1){
+	
+	:nth-child(1){
+		background-image: url("../img/photo-1.png");
+	}
+	:nth-child(2){
+		background-image: url("../img/photo-2.png");
+	}
+	:nth-child(3){
+		background-image: url("../img/photo-3.png");
+	}
+	:nth-child(4){
+		background-image: url("../img/photo-4.png");
+	}
+	:nth-child(5){
+		background-image: url("../img/photo-1.png");
+	}
+	:nth-child(6){
+		background-image: url("../img/photo-2.png");
+	}
+}
+
+.hot-dogs-top :nth-child(2){
+	
+	:nth-child(1){
+		background-image: url("../img/photo-7.png");
+	}
+	:nth-child(2){
+		background-image: url("../img/photo-8.png");
+	}
+	:nth-child(3){
+		background-image: url("../img/photo-9.png");
+	}
+	:nth-child(4){
+		background-image: url("../img/photo-10.png");
+	}
+	:nth-child(5){
+		background-image: url("../img/photo-7.png");
+	}
+	:nth-child(6){
+		background-image: url("../img/photo-8.png");
+	}
+}
+
+@media (max-width:700px){
+	.hot-dogs-top :nth-child(2){
+		display: none;
+	}
+}
