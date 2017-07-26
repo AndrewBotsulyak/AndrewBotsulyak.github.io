@@ -1,0 +1,103 @@
+@import 'vars.scss';
+
+.swiper-wrapper{
+    transition-timing-function:cubic-bezier(.645,.045,.355,1);
+}
+    .swiper-container {
+        width: 100%;
+        height: 100%;
+    }
+    .swiper-slide {
+        height: 100vh;
+        text-align: center;
+        font-size: 18px;
+        background: #fff;
+        /* Center slide text vertically */
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+        overflow:hidden;
+    }
+
+.swiper-slide[data-swiper-slide-index='0']{
+    background-image: url("../images/ethan-robertson-134952-min.jpg");
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+}
+.swiper-slide[data-swiper-slide-index='1']{
+    background-image: url("../images/alexander-csontala-196084-min.jpg");
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+}
+.swiper-slide[data-swiper-slide-index='2']{
+    background-image: url("../images/joey-kyber-132520-min.jpg");
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+}
+.swiper-slide[data-swiper-slide-index='3']{
+    background-image: url("../images/muhammad-masood-238193-min.jpg");
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+}
+.swiper-slide[data-swiper-slide-index='4']{
+    background-image: url("../images/scott-webb-12981-min.jpg");
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+}
+.swiper-slide[data-swiper-slide-index='5']{
+    background-image: url("../images/sebastian-grochowicz-222934-min.jpg");
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.wrapper{
+    width: 100%;
+    height: 100%;
+}
+
+            // Navigations
+
+.swiper-container-vertical>.swiper-pagination-bullets{
+    left:$leftForContent;
+    width: 18px;
+
+}
+
+.swiper-container-vertical>.swiper-pagination-bullets .swiper-pagination-bullet{
+    margin:15px auto;
+}
+
+.swiper-pagination-bullet{
+    position: relative;
+    background-color: white;
+    border: 2px solid white;
+    transition:.3s ease;
+    opacity:.7;
+}
+
+.swiper-pagination-bullet:hover:not(.swiper-pagination-bullet-active){
+    transform:scale(1.6);
+    background-color: inherit;
+}
+
+.swiper-pagination-bullet-active{
+    background-color: inherit;
+    width: 18px;
+    height: 18px;
+    opacity:1;
+}

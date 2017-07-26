@@ -1,0 +1,340 @@
+.video-block-wrap{
+	width: 500px;
+	height: 500px;
+	position: absolute;
+	margin:auto;
+	top:50%;
+	transform:translateY(-50%);
+}
+
+.circle-block{
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+
+.path{
+	stroke-dashoffset: 313.644;
+  	stroke-dasharray: 313.644, 313.644;
+}
+
+.video-block__text{
+	position: absolute;
+	width: 80%;
+	left:10%;
+	top:50%;
+	transform:translateY(-50%);
+	color:white;
+	
+	& > .video-block__text-main{
+		font-size: 37px;
+		margin-bottom:15px;
+		font-weight: 600;
+		letter-spacing:5px;
+	}
+	& > .video-block__text-second{
+		font-size: 24px;
+	}
+}
+
+.video-block-play{
+	width: 80px;
+	height: 80px;
+	top: 50%;
+    transform: translate(245px,-50%);
+	background-color: aqua;
+	position: absolute;
+	border-radius:50%;
+	overflow:hidden;
+	//transition:3s ease;
+
+
+	z-index: 10;
+	/* &:hover{
+		width: 3000px;
+		height: 3000px;
+		//transform:translate(245px,50);
+		//background-color: transparent;
+	} */
+
+	&:hover .videoplayer{
+		//opacity:1;
+		
+	}
+}
+
+.big-circle{
+	width: 3000px !important;
+	height: 3000px !important;
+
+}
+
+.small-circle{
+	width: 800px !important;
+	height: 800px !important;
+
+}
+
+.video-block-big{
+	width: 3000px;
+	height: 3000px;
+	transform:translate(245px,0%);
+	background-color: transparent;
+}
+
+.videoplayer{
+	height: 100vh;
+	width: 100vw;
+	position: fixed;
+	background-image: url("../images/sebastian-grochowicz-222934-min.jpg");
+	background-size: cover;
+	opacity:0;
+	top:50%;
+	left:50%;
+	transform:translate(-50%,-50%);
+	margin-left: -245px;
+	transition: none;
+}
+
+ ////////////////////////   Custom Controls /////////////////
+
+#myElement{
+    width: 100vw;
+    height: 100vh;
+    margin-top: 600px;
+}
+.path-control{
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform:tranlate(-50%,-50%);
+    stroke-dashoffset: 314;
+    stroke-dasharray: 314;
+    
+    z-index: 10;
+}
+
+.path-track{
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform:tranlate(-50%,-50%);
+    stroke-dashoffset: 0;
+    stroke-dasharray: 1 1 1;
+    
+}
+
+.path-buffer{
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform:tranlate(-50%,-50%);
+    stroke-dashoffset: 314;
+    stroke-dasharray: 314;
+    opacity: 1;
+}
+
+.abs{
+    position: absolute;
+    top:0;
+}
+
+.playhead{
+    width: 505px;
+    height: 505px;
+    position: absolute;
+    top:0;
+    
+    border-radius: 50%;
+    
+    box-sizing: border-box;
+}
+
+.playhead:hover{
+    
+}
+.static-block{
+    width: 500px;
+    height: 500px;
+    position: absolute;
+    top:0;
+    
+    border-radius: 50%;
+    
+    box-sizing: border-box;
+}
+.playhead-head{
+    position: absolute;
+    top: -5px;
+    left:50%;
+    transform:translateX(-50%);
+    width: 20px;
+    height: 20px;
+    background-color: red;
+    border-radius: 50%;
+    cursor:pointer;
+}
+
+.play-button{
+    width: 50px;
+    height: 50px;
+    background-image: url('../images/play-button.svg');
+    -webkit-background-size: cover;
+    background-size: cover;
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    cursor:pointer;
+    transition:.2s ease;
+}
+
+.pause{
+    background-image: url('../images/pause.svg');
+}
+
+.play-button:hover{
+    transform:scale(1.2) translate(-40%,-40%);
+}
+
+.myControls-wrap{
+    position: relative;
+    width: 500px;
+    height: 500px;
+}
+
+.wrapper > .custom-controls{
+	display: none;
+}
+.custom-controls{
+    position: absolute;
+    z-index: 1;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+}
+
+.jw-controls, .jw-overlays{
+    display: none;
+}
+
+.video-close-wrap{
+	position: absolute;
+	width: 200px;
+	height: 200px;
+	border-radius:50%;
+	top:50%;
+	left:-136px;
+	transform:translateY(-50%);
+	overflow:hidden;
+	transition:2.5s ease;
+}
+
+.video-close-pic{
+    position: absolute;
+    top: -50vh;
+    left: 0px;
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+    transform: translate(135px,100px);
+	
+}
+
+.video-close-btn{
+    position: absolute;
+    top: 26%;
+    transform: rotate(-90deg) translateY(20%);
+    right: 15px;
+    font-size: 16px;
+    height: 100px;
+    line-height: 100px;
+    text-align: center;
+
+    /* &:hover{ // work wrong
+    	color:white;
+    } */
+}
+
+.video-close-btn i:before{
+	font-size: 24px;
+}
+
+.video-close-btn:hover{
+	color:white;
+}
+
+.swiper-slide[data-swiper-slide-index='0'] .video-close-pic{
+	background-image: url("../images/ethan-robertson-134952-min.jpg");
+}
+
+.swiper-slide[data-swiper-slide-index='1'] .video-close-pic{
+	background-image: url("../images/alexander-csontala-196084-min.jpg");
+}
+
+.swiper-slide[data-swiper-slide-index='2'] .video-close-pic{
+	background-image: url("../images/joey-kyber-132520-min.jpg");
+}
+
+.swiper-slide[data-swiper-slide-index='3'] .video-close-pic{
+	background-image: url("../images/muhammad-masood-238193-min.jpg");
+}
+
+.swiper-slide[data-swiper-slide-index='4'] .video-close-pic{
+	background-image: url("../images/scott-webb-12981-min.jpg");
+}
+
+.swiper-slide[data-swiper-slide-index='5'] .video-close-pic{
+	background-image: url("../images/sebastian-grochowicz-222934-min.jpg");
+}
+
+
+@keyframes dash {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media(max-width:760px){
+    .video-block-wrap{
+        width: 300px;
+        height: 300px;
+    }
+    .circle-block > svg{
+        width: 300px;
+        height: 300px;
+    }
+    .video-block__text > .video-block__text-main{
+        font-size: 20px;
+    }
+    .video-block__text > .video-block__text-second{
+        font-size: 18px;
+    }
+
+    .video-block-play{
+        transform:translate(145px,-50%);
+    }
+
+    .videoplayer{
+        margin-left: -145px;
+    }
+
+    .custom-controls > svg{
+        width: 300px;
+        height: 300px;
+    }
+
+    .static-block{
+        width: 300px;
+        height: 300px;
+    }
+    .playhead{
+        width: 302px;
+        height: 302px;
+    }
+
+    .myControls-wrap{
+        width: 300px;
+        height: 300px;
+    }
+}

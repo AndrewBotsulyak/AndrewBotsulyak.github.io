@@ -1,0 +1,74 @@
+#preloader{
+	width: 100vw;
+	height: 100vh;
+	background-color: #fff;
+	position: fixed;
+	top:0;
+	left:0;
+	z-index: 11;
+}
+
+.preloader__wrap-logo{
+    width: 200px;
+    position: relative;
+    margin: auto;
+    top: 50%;
+    transform:translateY(-50%);
+}
+
+.preloader__logo-name{
+	top: 100px;
+    left: 42px;
+    position: absolute;
+    font-size: 17px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 6px;
+}
+
+.preloader__logo-name > span {
+	font-size: .6em;
+}
+
+
+.preloader__wrap-rect{
+	width: 60%;
+	height: 200px;
+	position: relative;
+	margin:auto;
+	top:50%;
+	transform:translateY(-171%);
+	box-sizing: border-box;
+}
+
+.preloader__left{
+	width: calc(50% - 2px);
+	height: 200px;
+	float: left;
+	border:2px solid red;
+	border-right: none;
+	animation:leftPre 5s linear;
+}
+
+.preloader__right{
+	width: calc(50% - 2px);
+	height: 200px;
+	float: right;
+	border:2px solid red;
+	border-left: none;
+	animation:leftPre 5s linear;
+}
+
+@keyframes leftPre{
+	0%{
+		width: calc(50% - 2px);
+	}
+	50%{
+		width: 0%;
+		transform:scaleY(1);
+	}
+	100%{
+		transform:scaleY(0);
+		width: 0%;
+	}
+}

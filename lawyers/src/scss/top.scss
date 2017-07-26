@@ -1,0 +1,99 @@
+@import 'vars.scss';
+
+#top{
+	width: 100%;
+	height: 840px;
+	background-image: url("../images/stock-photo-177211577.png");
+    background-size: cover;
+    background-position: 45% 40%;
+	position: relative;
+	margin-top: 110px;
+}
+
+#top > .top-bg{
+	position: absolute;
+	top:0;
+	left:0;
+	width: 100%;
+	height: 100%;
+	background-size: cover;
+	background-image: url("../images/innershadow.png");
+}
+
+.top-info-wrap{
+	position: absolute;
+	height: 85px;
+	width: 100%;
+	bottom:140px;
+	box-sizing:border-box;
+	padding:0 100px;
+}
+
+.top-info-wrap > *{
+	display: inline-block;
+}
+
+.top-info{
+	position: relative;
+	width: 50%;
+	height: 100%;
+	@include borderLeft;
+	padding-left:15px;
+	color:white;
+	
+	& span{
+		font-family: 'OpenSans';
+		font-size: 31px;
+	    position: relative;
+    	top: -40px;	
+	}
+}
+
+.top-info-name{
+	font-size: 65px;
+	font-family: 'PlayfairDisplay';
+    position: relative;
+    top: -20px;
+    white-space:nowrap;
+}
+
+.top-info-btn{
+	position: relative;
+	width: 50%;
+	height: 100%;
+	float:right;
+	box-sizing:border-box;
+}
+
+.top-info-btn .mybtn{
+	position: absolute;
+	@include center;
+	right:15px;
+}
+
+@media (max-width:805px){
+	.top-info-wrap{
+		padding:0;
+		height: auto;
+	}
+	
+	.top-info{
+		width: auto;
+		
+		& .top-info-name{
+			white-space:inherit;
+		}
+	}
+
+	.top-info-btn{
+		width: auto;
+		float:none;
+	}
+
+	.top-info-btn .mybtn{
+		transform:none;
+		right:0;
+		position: relative;
+	}
+
+}

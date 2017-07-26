@@ -1,0 +1,196 @@
+.header-fix{
+	width: 100vw;
+	height: 100vh;
+	background-color: #000;
+	position: fixed;
+	top:0;
+	left:0;
+	z-index: -1;
+}
+
+.content{
+	position: relative;
+	width: 900px;
+	padding-left: 100px;
+	height: 100vh;
+	margin:0 auto;
+	
+}
+
+
+.header__content-infobox{
+	width: 100%;
+	height: 645px;
+	border:3px solid white;
+	top:18%;
+	position: relative;
+}
+
+.header__content-infobox > div{
+	position: absolute;
+}
+
+.infobox__text{
+	width: 100%;
+	top:200px;
+	left:0;
+	z-index: 10;
+	color:white;
+}
+
+
+.infobox__text-underTitle{
+	width: 100%;
+	height: 100px;
+	margin-top: 50px;
+	font-size: 110px;
+	text-align: center;
+	text-transform: uppercase;
+	letter-spacing: 17px;
+}
+
+.leaf-down{
+	width: 100%;
+	height: 50px;
+	margin-top: 70px;
+	text-align: center;
+	font-size: 16px;
+	text-transform: uppercase;
+}
+
+.arrow-down{
+	background-image: url('images/down-arrow.png');
+	background-size: cover;
+	width: 30px;
+	height: 30px;
+	margin:25px auto;
+	animation: arrowAnim 2.5s infinite;
+}
+
+@keyframes arrowAnim{
+	0%{opacity:1;}
+	50%{opacity:0;}
+	100%{opacity:1;}
+}
+
+.babe-chair{
+	width: 127%;
+    top: -85px;
+    left: -12%;
+
+	z-index: 1;
+	position: absolute;
+}
+
+.move{
+	transition: 0s ease;
+}
+
+.red-flower{
+	width: 360px;
+    height: 260px;
+    top: 50px;
+    left: -225px;
+	background-image: url("images/red_flower.png");
+	background-size: cover;
+	z-index: 2;
+	position: absolute;
+	opacity:0;
+}
+
+
+
+.big-flower{
+	width: 360px;
+    height: 330px;
+    top: 400px;
+    left: 600px;
+	background-image: url("images/big_flower.png");
+	background-size: cover;
+	z-index: 3;
+	position: absolute;
+	opacity:0;
+}
+
+.one-flower{
+	width: 137px;
+    height: 120px;
+    top: 600px;
+    left: 130px;
+	background-image: url("images/one_flower.png");
+	background-size: cover;
+	z-index: 4;
+	position: absolute;
+	opacity:0;
+}
+
+.little-flower{
+	width: 137px;
+    height: 120px;
+    top: -80px;
+    left: 125px;
+	background-image: url("images/little_flower.png");
+	background-size: cover;
+	z-index: 5;
+	position: absolute;
+	opacity:0;
+}
+
+.layer{
+	transition: .1s linear;
+}
+
+@media (max-width: 1080px){
+	.content{
+		position: relative;
+		width: 100%;
+		padding:0 5%;
+		height: 100vh;
+		box-sizing: border-box;
+	}
+}
+
+@media (max-width: 900px){
+	.header__content-infobox{
+		height: 500px;
+	}
+	.infobox__text{
+		top:100px;
+	}
+}
+
+@media (max-width: 750px){
+	.header__content-infobox{
+		height: 400px;
+	}
+	.infobox__text-underTitle{
+		font-size: 80px;
+	}
+}
+
+@media(max-width: 570px){
+	.header-fix{
+		height: 80vh;
+	}
+	.header__content-infobox{
+		border:none;
+		top:33%;
+	}
+	.infobox__text{
+		top:0;
+	}
+	.infobox__text-underTitle{
+		font-size: 37px;
+		margin-top: 0;
+	}
+	.leaf-down{
+		display: none;
+	}
+	.little-flower, .red-flower, .big-flower , .one-flower{
+		display: none;
+	}
+	.babe-chair{
+		width: 150%;
+		left:-24%;
+	}
+}

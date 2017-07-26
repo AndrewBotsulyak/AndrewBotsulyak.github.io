@@ -1,0 +1,121 @@
+#catalog{
+	width: 100%;
+	height: 770px;
+	margin-top: 100vh;
+	z-index: 0;
+	background-image: url('images/main_nose1920.jpg');
+	background-size: cover;
+	position: relative;
+	color:white;
+}
+
+.content-catalog{
+	height: 100%;
+	animation-fill-mode:forwards;
+}
+
+.content-catalog:after{
+	content:' ';
+	clear:both;
+	display: table;
+}
+
+.catalog__box{
+	width: 600px;
+	height: 250px;
+	position: relative;
+	top:300px;
+	border:3px solid white;
+	animation-delay: 1.5s;
+}
+
+.catalog__label{
+	display:block;
+	width: 45px;
+	height: 120px;
+	background-color: #cf5649;
+	top: -3px;
+    left: -48px;
+	position: absolute;
+	text-align: center;
+	line-height: 40px;
+	letter-spacing: 2px;
+	animation-delay: 1.5s;
+	z-index: -1;
+
+}
+
+.catalog__label > span{
+	display:block;
+	transform: translateY(146%) rotate(270deg);
+}
+
+.catalog__subtitle{
+	position: absolute;
+	font-size: 40px;
+	left:35px;
+	top:35px;
+	text-align: center;
+	text-transform: uppercase;
+	letter-spacing: 4px;
+}
+
+.catalog__year{
+	position: absolute;
+	font-size: 120px;
+	left:35px;
+	top:90px;
+	text-align: center;
+	text-transform: uppercase;
+	letter-spacing: 19px;
+}
+
+@media(max-width: 1080px){
+	.catalog__box{
+		width: 100%;
+	}
+}
+
+@media(max-width: 570px){
+	#catalog{
+		margin-top: 80vh;
+	}
+	.catalog__box{
+		height: 170px;	
+	}
+	.catalog__subtitle{
+		font-size: 25px;
+		position: relative;
+		left:50%;
+		top:39px;
+		transform: translateX(-50%);
+	}
+	.catalog__year{
+		font-size: 50px;
+		position: relative;
+		left:53%;
+		top:44px;
+		transform: translateX(-50%);
+	}
+	.catalog__label{
+	    width: 120px;
+	    height: 45px;
+	    top: -48px;
+	    left: -3px;
+	}
+	.catalog__label>span{
+		transform:none;
+	}
+
+	#catalog .button{
+		top:125px !important;
+	}
+	#catalog .button-content{
+		top:125px !important;
+		
+	}
+
+	#catalog .button-value{
+		line-height: 20px;
+	}
+}

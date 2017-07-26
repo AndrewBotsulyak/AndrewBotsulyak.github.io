@@ -1,0 +1,41 @@
+html, body {
+        position: relative;
+        height: 100vh;
+        width: 100vw;
+        overflow:hidden;
+    }
+    body {
+        background: #eee;
+        font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        color:#000;
+        margin: 0;
+        padding: 0;
+    }
+
+a{
+	text-decoration:none;
+	color:white;
+	outline:none !important;
+}
+
+.container{
+	position: relative;
+	width: 100%;
+	height: 100%;
+	cursor: default !important;
+}
+
+				// transform container ( menu effect )
+.animate .container{
+	transform:translateX(-3.5%)
+	 rotateY(45deg)
+	  translateZ(0px)
+	  scaleX(.615)
+	  scaleY(.75) !important;
+	  
+}
+
+.effect-moveleft .container{
+	transform-origin:0 50% 0 !important;
+}

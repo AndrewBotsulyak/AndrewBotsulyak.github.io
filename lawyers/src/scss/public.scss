@@ -1,0 +1,161 @@
+@import 'vars.scss';
+
+#public{
+	min-height: 1010px;
+	width: 100%;
+}
+
+.public-title .shadow-num{
+	color:#f3f3f3;
+}
+
+.public-wrap-items{
+	width: 100%;
+	min-height: 635px;
+	box-sizing:border-box;
+
+	&:after{
+		content:' ';
+		clear:both;
+		display: table;
+	}
+}
+
+.public-item{
+	width: 32%;
+	min-height: 635px;
+	float:left;
+	margin-right: 2%;
+	border-bottom:2px solid $mainColor;
+	box-sizing:border-box;
+}
+
+.public-item:last-child{
+	margin-right: 0;
+}
+
+.public-item-pic{
+	position: relative;
+	top:0;
+	left:0;
+	width: 100%;
+	height: 300px;
+}
+
+.public-item:nth-child(1) .public-item-pic{
+	background-image: url("../images/public1.png");
+	background-size: cover;
+}
+
+.public-item:nth-child(2) .public-item-pic{
+	background-image: url("../images/public2.png");
+	background-size: 150%;
+}
+
+.public-item:nth-child(3) .public-item-pic{
+	background-image: url("../images/public3.png");
+	background-size: 150%;
+	background-position-x: -80px;
+}
+
+.public-item-title{
+	width: 100%;
+	position: relative;
+	margin-top: 30px;
+}
+
+.public-item-name{
+	font-family: 'PlayfairDisplay';
+	font-size: 21px;
+}
+
+.public-item-author{
+	font-family: 'OpenSans-Italic';
+	font-size: 16px;
+	color:#666666;
+}
+
+.item-author{
+	font-family: 'OpenSans';
+	font-size: 16px;
+	color:#111;
+}
+
+.item-date{
+	float:right;
+}
+
+.public-item-text{
+	position: relative;
+	margin-top: 40px;
+	font-family: 'OpenSans';
+	font-size: 14px;
+	line-height: 31px;
+}
+
+.public-item-footer{
+    position: relative;
+    bottom: 0;
+    height: 20px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-family: 'OpenSans';
+    font-size: 16px;
+}
+
+.public-item-comments{
+	float:left;
+
+	& div{
+	    width: 16px;
+	    float: left;
+	    margin-right: 5px;
+	    height: 15px;
+		background-image: url("../images/Comments.png");
+		background-size: cover;
+	}
+
+	& span{
+		float:left;
+	}
+}
+
+.public-item-share{
+	float:right;
+	width: 65px;
+	& div{
+	    width: 16px;
+	    float: left;
+	    margin-right: 5px;
+	    height: 15px;
+		background-image: url("../images/Share.png");
+		background-size: cover;
+	}
+
+	& span{
+		float:left;
+	}
+}
+
+
+@media (max-width:1100px){
+	.public-item:nth-child(2) .public-item-pic{
+		background-size: 180%;
+	}
+}
+
+
+@media (max-width:805px){
+	.public-item:nth-child(2) .public-item-pic{
+		background-size: 180%;
+	}
+
+	.public-item{
+		width: 90%;
+		margin:auto;
+		float:none;
+	}
+	.public-item:last-child{
+		margin-right: auto;
+	}
+}

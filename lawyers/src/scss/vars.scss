@@ -1,0 +1,12 @@
+$mainColor:#e8bf5d;
+
+
+@mixin center{
+	top:50%;
+	transform: translateY(-50%);
+}
+
+@mixin borderLeft{
+	border-left:2px solid $mainColor;
+	box-sizing:border-box;
+}

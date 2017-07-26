@@ -1,0 +1,81 @@
+    .fa-info{
+        font-size: 22px;
+    }
+
+    .info-block-wrap{
+        position: absolute;
+        width: 35px;
+        height: 35px;
+        background-color: rgba(255,255,255,.5);
+        text-align: center;
+        line-height: 34px;
+        top:50%;
+        right: 50px;
+        transform:translateY(-50%);
+        border-radius:50%;
+
+        &:hover{
+            background-color: rgba(255,255,255,.9);
+        }
+    }
+    
+    .info-block{
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+        left:100vw;
+        background-color: #dfd9d5;
+        transition:.5s ease;
+        z-index: 999;
+        
+    }
+
+    .info-box__content{
+        position: relative;
+        top:10vh;
+        margin:auto;
+        width: 80vw;
+        height: 80vh;
+        overflow: auto;
+    }
+    
+    .info-block__close{
+        position: absolute;
+        right: 50px;
+        top:25px;
+        width:25px;
+        height: 25px;
+        text-align: center;
+        cursor:pointer;
+        font-size: 24px;
+    }
+
+.fa-times-circle{
+    opacity:.7;
+    &:hover{
+        opacity:1;
+    }
+}
+
+.jspVerticalBar {
+   width: 8px;
+   background-color: inherit;
+}
+
+.jspTrack {
+   width: 4px;
+   background-color: #ededed;
+   border-radius:5px;
+}
+
+.jspDrag {
+   width: 8px;
+   background-color: #545454;
+   position: absolute;
+   left:-2px;
+   border-radius:5px;
+}
+
+.jspHorizontalBar{
+    display:none;
+}
