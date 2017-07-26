@@ -12,7 +12,7 @@ import TodoListItem from './todoListItem.js';
  */
 export default class TodoList{
 
-	init(todo = null, title = '', arrItems = [] ){
+	constructor(todo = null, title = '', arrItems = [] ){
 
 		this.todoElem = todo;
 		this.input = this.todoElem.querySelector('.main-input');
@@ -75,7 +75,7 @@ export default class TodoList{
 	}
 
 	dispStateChangeEvent(){
-		const stateEvent = new CustomEvent('todoList.statechange',{
+		const stateEvent = new CustomEvent('todostatechange',{
 			bubbles: true,
 			detail:{
 				item: this,
@@ -87,10 +87,8 @@ export default class TodoList{
 
 	createFromStorage() {
 		this.state.arrItems.forEach(el => {
-			const objItem =  new TodoListItem();
-			const newElem = this.ul.appendChild(objItem.createElement());
-			objItem.init( newElem, el.checked, el.content );
-
+			const newElem = this.ul.appendChild(TodoListItem.createElement());
+			const objItem =  new TodoListItem(newElem, el.checked, el.content);
 			this.arrItems.push(objItem);
 		});
 	}
@@ -98,12 +96,10 @@ export default class TodoList{
 	onAddItem(event) {
 		event.preventDefault();
 		if(!this.isInputEmpty()){
-			
-			const objItem =  new TodoListItem();	
-			const newElem = this.ul.appendChild(objItem.createElement());
-			objItem.init( newElem, null, this.input.textContent );
+			debugger;
+			const newElem = this.ul.appendChild(TodoListItem.createElement());
+			const objItem =  new TodoListItem(newElem, null, this.input.textContent);
 			this.arrItems.push(objItem);
-
 			this.setState({ arrItems: this.arrItems.map(el => el.state)});
 		}
 	}
@@ -138,7 +134,7 @@ export default class TodoList{
 		}
 	}
 
-	createElement(){
+	static createElement(){
 		const div = document.createElement('div');
 		div.classList.add('todo');
 		div.innerHTML = `
@@ -150,7 +146,6 @@ export default class TodoList{
 				<div class="clearAll btn">Clear</div>
 			</form>
 			<ul class="todo-list">
-
 			</ul>
 		`;
 

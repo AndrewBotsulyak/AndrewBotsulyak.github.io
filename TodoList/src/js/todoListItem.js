@@ -9,7 +9,7 @@
  */
 export default class TodoListItem{
 
-	init( item = null, checked = false, content = '' ){
+	constructor( item = null, checked = false, content = '' ){
 
 		this.itemElem = item;
 		this.input = this.itemElem.querySelector('.edit-input');
@@ -32,7 +32,7 @@ export default class TodoListItem{
 
 		this.setValue(content);
 		this.setChecked(checked);
-		
+		 
 		// create Custom Event
 
 		this.input.addEventListener('keyup', (event) => this.onType(event));
@@ -51,7 +51,7 @@ export default class TodoListItem{
 	}
 
 	dispStateChangeEvent(){
-		const stateEvent = new CustomEvent('todoListItem.statechange',{
+		const stateEvent = new CustomEvent('todostatechange',{
 			bubbles: true,
 			detail:{
 				item: this,
@@ -170,7 +170,7 @@ export default class TodoListItem{
 		this.input.textContent = text;
 	}
 
-	createElement() {
+	static createElement() {
 		const li = document.createElement('li');
 		li.classList.add('todo-list--item');
 

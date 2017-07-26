@@ -16,41 +16,30 @@ export default class TodoBuilder{
 		this.todosArr = [];
 		this.btnAddTodo = document.querySelector('.build-todo');
 
-		this.btnAddTodo.addEventListener('click', (event) => this.onBuild(event));
+		
 
 		this.state = {
 			todosArr: []
 		}
 
+		this.btnAddTodo.addEventListener('click', (event) => this.onBuild(event));
+
 		this.containerElem.addEventListener('TodoList.remove', (event) => this.removeTodo(event));
 
-		this.containerElem.addEventListener('todoList.statechange',
-		(event) =>{ 
-			let newArr = this.state.todosArr.map((todo, index) => {
-				todo.arrItems = this.todosArr[index].arrItems.map(el => {
-					return el.state;
-				});
-				todo.title = this.todosArr[index].state.title;
-				return todo;
+		this.containerElem.addEventListener('todostatechange', (event) => this.updateStorage());
+
+	}
+
+	updateStorage(){
+		debugger;
+		this.state.todosArr.forEach((todo, index) => {
+			todo.arrItems = this.todosArr[index].arrItems.map(el => {
+				return el.state;
 			});
-
-			this.setState({ todosArr: newArr });
-			// localStorage.setItem('todos', JSON.stringify(this.state));
+			todo.title = this.todosArr[index].state.title;
 		});
 
-		this.containerElem.addEventListener('todoListItem.statechange',
-		(event) =>{ 
-			let newArr = this.state.todosArr.map((todo, index) => {
-				todo.arrItems = this.todosArr[index].arrItems.map(el => {
-					return el.state;
-				});
-				return todo;
-			});			
-
-			this.setState({ todosArr: newArr });
-			//localStorage.setItem('todos', JSON.stringify(this.state));
-		});
-
+		localStorage.setItem('todos', JSON.stringify(this.state));
 	}
 
 	onBuild(event){
@@ -74,10 +63,9 @@ export default class TodoBuilder{
 	 * @return {TodoList} just created.
 	 */
 	createTodo(){
-		const todo = new TodoList();			
-		let todoElem = todo.createElement();   
-		todoElem = this.containerElem.appendChild(todo.createElement());
-		todo.init(todoElem);					// initialize 
+		let todoElem = this.containerElem.appendChild(TodoList.createElement()); 
+		const todo = new TodoList(todoElem);			 
+		todo.createFromStorage();
 		this.todosArr.push(todo);
 
 		this.state.todosArr.push(todo.state);
@@ -91,29 +79,15 @@ export default class TodoBuilder{
 		this.state = state;
 
 		this.state.todosArr.forEach(el => {
-			const todo = new TodoList();			
-			let todoElem = this.containerElem.appendChild(todo.createElement());   
-			todo.init(todoElem, el.title, el.arrItems );					// initialize 
+			let todoElem = this.containerElem.appendChild(TodoList.createElement()); 
+			const todo = new TodoList(todoElem, el.title, el.arrItems);			 
 			todo.createFromStorage();
 			this.todosArr.push(todo);
 		});
 	}
 
-	setState(newState){
-		this.state = Object.assign({}, this.state, newState);
-		localStorage.setItem('todos', JSON.stringify(this.state));
-	}
-
 	hasLocalStorage(){
 		return localStorage.getItem('todos')? true : false;
-	}
-
-	/**
-	 * @param  {HTMLElement} todoElem - TodoLIst.
-	 * @return {HTMLElement} elem in DOM.
-	 */
-	renderTodo(todoElem){
-		return this.containerElem.appendChild(todoElem);
 	}
 
 	/**

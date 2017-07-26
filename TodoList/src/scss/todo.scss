@@ -4,7 +4,8 @@ body{
 }
 
 .todo-container{
-	
+	display: flex;
+	flex-wrap: wrap;
 }
 
 .build-todo{
@@ -23,12 +24,15 @@ body{
 	padding: 15px;
 	position: relative;
 	top: 0;
+	box-sizing: border-box;
 }
 
 .todo{
-	float:left;
-	margin: 10px 25px;
-	width: 400px;
+	flex: 1 0 310px;
+	align-content: flex-start;
+	margin: 5px 5px;
+	max-width: 620px;
+	height: 100%;
 	box-shadow: 3px 3px 10px grey;
 	background-color: #fff;
 }

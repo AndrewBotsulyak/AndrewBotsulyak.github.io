@@ -105,45 +105,39 @@ var TodoBuilder = function () {
 		this.todosArr = [];
 		this.btnAddTodo = document.querySelector('.build-todo');
 
-		this.btnAddTodo.addEventListener('click', function (event) {
-			return _this.onBuild(event);
-		});
-
 		this.state = {
 			todosArr: []
 		};
+
+		this.btnAddTodo.addEventListener('click', function (event) {
+			return _this.onBuild(event);
+		});
 
 		this.containerElem.addEventListener('TodoList.remove', function (event) {
 			return _this.removeTodo(event);
 		});
 
-		this.containerElem.addEventListener('todoList.statechange', function (event) {
-			var newArr = _this.state.todosArr.map(function (todo, index) {
-				todo.arrItems = _this.todosArr[index].arrItems.map(function (el) {
-					return el.state;
-				});
-				todo.title = _this.todosArr[index].state.title;
-				return todo;
-			});
-
-			_this.setState({ todosArr: newArr });
-			// localStorage.setItem('todos', JSON.stringify(this.state));
-		});
-
-		this.containerElem.addEventListener('todoListItem.statechange', function (event) {
-			var newArr = _this.state.todosArr.map(function (todo, index) {
-				todo.arrItems = _this.todosArr[index].arrItems.map(function (el) {
-					return el.state;
-				});
-				return todo;
-			});
-
-			_this.setState({ todosArr: newArr });
-			//localStorage.setItem('todos', JSON.stringify(this.state));
+		this.containerElem.addEventListener('todostatechange', function (event) {
+			return _this.updateStorage();
 		});
 	}
 
 	_createClass(TodoBuilder, [{
+		key: 'updateStorage',
+		value: function updateStorage() {
+			var _this2 = this;
+
+			debugger;
+			this.state.todosArr.forEach(function (todo, index) {
+				todo.arrItems = _this2.todosArr[index].arrItems.map(function (el) {
+					return el.state;
+				});
+				todo.title = _this2.todosArr[index].state.title;
+			});
+
+			localStorage.setItem('todos', JSON.stringify(this.state));
+		}
+	}, {
 		key: 'onBuild',
 		value: function onBuild(event) {
 			this.createTodo();
@@ -175,10 +169,9 @@ var TodoBuilder = function () {
 	}, {
 		key: 'createTodo',
 		value: function createTodo() {
-			var todo = new _todoList2.default();
-			var todoElem = todo.createElement();
-			todoElem = this.containerElem.appendChild(todo.createElement());
-			todo.init(todoElem); // initialize 
+			var todoElem = this.containerElem.appendChild(_todoList2.default.createElement());
+			var todo = new _todoList2.default(todoElem);
+			todo.createFromStorage();
 			this.todosArr.push(todo);
 
 			this.state.todosArr.push(todo.state);
@@ -189,40 +182,22 @@ var TodoBuilder = function () {
 	}, {
 		key: 'createTodoFromStorage',
 		value: function createTodoFromStorage() {
-			var _this2 = this;
+			var _this3 = this;
 
 			var state = JSON.parse(localStorage.getItem('todos'));
 			this.state = state;
 
 			this.state.todosArr.forEach(function (el) {
-				var todo = new _todoList2.default();
-				var todoElem = _this2.containerElem.appendChild(todo.createElement());
-				todo.init(todoElem, el.title, el.arrItems); // initialize 
+				var todoElem = _this3.containerElem.appendChild(_todoList2.default.createElement());
+				var todo = new _todoList2.default(todoElem, el.title, el.arrItems);
 				todo.createFromStorage();
-				_this2.todosArr.push(todo);
+				_this3.todosArr.push(todo);
 			});
-		}
-	}, {
-		key: 'setState',
-		value: function setState(newState) {
-			this.state = Object.assign({}, this.state, newState);
-			localStorage.setItem('todos', JSON.stringify(this.state));
 		}
 	}, {
 		key: 'hasLocalStorage',
 		value: function hasLocalStorage() {
 			return localStorage.getItem('todos') ? true : false;
-		}
-
-		/**
-   * @param  {HTMLElement} todoElem - TodoLIst.
-   * @return {HTMLElement} elem in DOM.
-   */
-
-	}, {
-		key: 'renderTodo',
-		value: function renderTodo(todoElem) {
-			return this.containerElem.appendChild(todoElem);
 		}
 
 		/**
@@ -297,67 +272,63 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
  */
 var TodoList = function () {
 	function TodoList() {
+		var todo = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+
+		var _this = this;
+
+		var title = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+		var arrItems = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
+
 		_classCallCheck(this, TodoList);
+
+		this.todoElem = todo;
+		this.input = this.todoElem.querySelector('.main-input');
+		this.add = this.todoElem.querySelector('.add-item');
+		this.ul = this.todoElem.querySelector('.todo-list');
+		this.clearList = this.todoElem.querySelector('.clearAll');
+		this.titleElem = this.todoElem.querySelector('.title');
+		this.deleteTodo = this.todoElem.querySelector('.delete-todo');
+
+		this.titleElem.textContent = title;
+		this.title = title;
+		this.arrItems = [];
+
+		this.parent = function () {
+			var build = _this.todoElem.parentElement;
+			while (!build.classList.contains('todo-container')) {
+				build = build.parentElement;
+			}
+			return build;
+		}();
+
+		this.state = {
+			title: title,
+			arrItems: arrItems
+		};
+
+		this.deleteTodo.addEventListener('click', function (event) {
+			return _this.onRemove(event);
+		});
+
+		this.titleElem.addEventListener('keyup', function (event) {
+			return _this.onType(event);
+		});
+
+		//	subscribe on TodoListItem's 'closeItem' event
+		this.ul.addEventListener('closeItem', function (event) {
+			return _this.onDeleteItem(event);
+		});
+
+		this.todoElem.addEventListener('submit', function (event) {
+			return _this.onAddItem(event);
+		});
+
+		this.clearList.addEventListener('click', function (event) {
+			return _this.clearAll(event);
+		});
 	}
 
 	_createClass(TodoList, [{
-		key: 'init',
-		value: function init() {
-			var todo = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-
-			var _this = this;
-
-			var title = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
-			var arrItems = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
-
-
-			this.todoElem = todo;
-			this.input = this.todoElem.querySelector('.main-input');
-			this.add = this.todoElem.querySelector('.add-item');
-			this.ul = this.todoElem.querySelector('.todo-list');
-			this.clearList = this.todoElem.querySelector('.clearAll');
-			this.titleElem = this.todoElem.querySelector('.title');
-			this.deleteTodo = this.todoElem.querySelector('.delete-todo');
-
-			this.titleElem.textContent = title;
-			this.title = title;
-			this.arrItems = [];
-
-			this.parent = function () {
-				var build = _this.todoElem.parentElement;
-				while (!build.classList.contains('todo-container')) {
-					build = build.parentElement;
-				}
-				return build;
-			}();
-
-			this.state = {
-				title: title,
-				arrItems: arrItems
-			};
-
-			this.deleteTodo.addEventListener('click', function (event) {
-				return _this.onRemove(event);
-			});
-
-			this.titleElem.addEventListener('keyup', function (event) {
-				return _this.onType(event);
-			});
-
-			//	subscribe on TodoListItem's 'closeItem' event
-			this.ul.addEventListener('closeItem', function (event) {
-				return _this.onDeleteItem(event);
-			});
-
-			this.todoElem.addEventListener('submit', function (event) {
-				return _this.onAddItem(event);
-			});
-
-			this.clearList.addEventListener('click', function (event) {
-				return _this.clearAll(event);
-			});
-		}
-	}, {
 		key: 'setState',
 		value: function setState(newState) {
 			this.state = Object.assign({}, this.state, newState);
@@ -385,7 +356,7 @@ var TodoList = function () {
 	}, {
 		key: 'dispStateChangeEvent',
 		value: function dispStateChangeEvent() {
-			var stateEvent = new CustomEvent('todoList.statechange', {
+			var stateEvent = new CustomEvent('todostatechange', {
 				bubbles: true,
 				detail: {
 					item: this,
@@ -400,10 +371,8 @@ var TodoList = function () {
 			var _this2 = this;
 
 			this.state.arrItems.forEach(function (el) {
-				var objItem = new _todoListItem2.default();
-				var newElem = _this2.ul.appendChild(objItem.createElement());
-				objItem.init(newElem, el.checked, el.content);
-
+				var newElem = _this2.ul.appendChild(_todoListItem2.default.createElement());
+				var objItem = new _todoListItem2.default(newElem, el.checked, el.content);
 				_this2.arrItems.push(objItem);
 			});
 		}
@@ -412,12 +381,10 @@ var TodoList = function () {
 		value: function onAddItem(event) {
 			event.preventDefault();
 			if (!this.isInputEmpty()) {
-
-				var objItem = new _todoListItem2.default();
-				var newElem = this.ul.appendChild(objItem.createElement());
-				objItem.init(newElem, null, this.input.textContent);
+				debugger;
+				var newElem = this.ul.appendChild(_todoListItem2.default.createElement());
+				var objItem = new _todoListItem2.default(newElem, null, this.input.textContent);
 				this.arrItems.push(objItem);
-
 				this.setState({ arrItems: this.arrItems.map(function (el) {
 						return el.state;
 					}) });
@@ -467,12 +434,12 @@ var TodoList = function () {
 				this.setState({ arrItems: [] });
 			}
 		}
-	}, {
+	}], [{
 		key: 'createElement',
 		value: function createElement() {
 			var div = document.createElement('div');
 			div.classList.add('todo');
-			div.innerHTML = '\n\t\t\t<form action="" class="todo-form">\n\t\t\t\t<div class="delete-todo">\xD7</div>\n\t\t\t\t<div class=\'title\' contenteditable="true"></div>\n\t\t\t\t<div class=\'main-input\' contenteditable="true" ></div>\n\t\t\t\t<input type="submit" class="add-item btn" value="Add" />\n\t\t\t\t<div class="clearAll btn">Clear</div>\n\t\t\t</form>\n\t\t\t<ul class="todo-list">\n\n\t\t\t</ul>\n\t\t';
+			div.innerHTML = '\n\t\t\t<form action="" class="todo-form">\n\t\t\t\t<div class="delete-todo">\xD7</div>\n\t\t\t\t<div class=\'title\' contenteditable="true"></div>\n\t\t\t\t<div class=\'main-input\' contenteditable="true" ></div>\n\t\t\t\t<input type="submit" class="add-item btn" value="Add" />\n\t\t\t\t<div class="clearAll btn">Clear</div>\n\t\t\t</form>\n\t\t\t<ul class="todo-list">\n\t\t\t</ul>\n\t\t';
 
 			return div;
 		}
@@ -509,61 +476,57 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
  */
 var TodoListItem = function () {
 	function TodoListItem() {
+		var item = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+
+		var _this = this;
+
+		var checked = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+		var content = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
+
 		_classCallCheck(this, TodoListItem);
+
+		this.itemElem = item;
+		this.input = this.itemElem.querySelector('.edit-input');
+		this.delete = this.itemElem.querySelector('.delete');
+		this.check = this.itemElem.querySelector('.check');
+		this.editElem = this.itemElem.querySelector('.edit');
+
+		this.parent = function () {
+			var todo = _this.itemElem.parentElement;
+			while (!todo.classList.contains('todo-list')) {
+				todo = todo.parentElement;
+			}
+			return todo;
+		}();
+
+		this.state = {
+			checked: checked,
+			content: content
+		};
+
+		this.setValue(content);
+		this.setChecked(checked);
+
+		// create Custom Event
+
+		this.input.addEventListener('keyup', function (event) {
+			return _this.onType(event);
+		});
+
+		this.editElem.addEventListener('click', function (event) {
+			return _this.onEdit(event);
+		});
+
+		this.check.addEventListener('click', function (event) {
+			return _this.ClickCheckbox(event);
+		});
+
+		this.delete.addEventListener('click', function (event) {
+			return _this.onDelete(event);
+		});
 	}
 
 	_createClass(TodoListItem, [{
-		key: 'init',
-		value: function init() {
-			var item = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-
-			var _this = this;
-
-			var checked = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-			var content = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
-
-
-			this.itemElem = item;
-			this.input = this.itemElem.querySelector('.edit-input');
-			this.delete = this.itemElem.querySelector('.delete');
-			this.check = this.itemElem.querySelector('.check');
-			this.editElem = this.itemElem.querySelector('.edit');
-
-			this.parent = function () {
-				var todo = _this.itemElem.parentElement;
-				while (!todo.classList.contains('todo-list')) {
-					todo = todo.parentElement;
-				}
-				return todo;
-			}();
-
-			this.state = {
-				checked: checked,
-				content: content
-			};
-
-			this.setValue(content);
-			this.setChecked(checked);
-
-			// create Custom Event
-
-			this.input.addEventListener('keyup', function (event) {
-				return _this.onType(event);
-			});
-
-			this.editElem.addEventListener('click', function (event) {
-				return _this.onEdit(event);
-			});
-
-			this.check.addEventListener('click', function (event) {
-				return _this.ClickCheckbox(event);
-			});
-
-			this.delete.addEventListener('click', function (event) {
-				return _this.onDelete(event);
-			});
-		}
-	}, {
 		key: 'onType',
 		value: function onType(event) {
 			this.setState({ content: this.input.textContent });
@@ -571,7 +534,7 @@ var TodoListItem = function () {
 	}, {
 		key: 'dispStateChangeEvent',
 		value: function dispStateChangeEvent() {
-			var stateEvent = new CustomEvent('todoListItem.statechange', {
+			var stateEvent = new CustomEvent('todostatechange', {
 				bubbles: true,
 				detail: {
 					item: this,
@@ -707,7 +670,7 @@ var TodoListItem = function () {
 
 			this.input.textContent = text;
 		}
-	}, {
+	}], [{
 		key: 'createElement',
 		value: function createElement() {
 			var li = document.createElement('li');
@@ -746,7 +709,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var container = document.querySelector('.todo-container');
 
 var build = new _todoBuilder2.default(container);
-
 if (build.hasLocalStorage()) {
    build.createTodoFromStorage();
 } else {

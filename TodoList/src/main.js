@@ -7,7 +7,6 @@ import TodoBuilder from './js/todoBuilder.js';
 const container = document.querySelector('.todo-container');
 
 const build = new TodoBuilder(container);
-
 if(build.hasLocalStorage()){
     build.createTodoFromStorage();
 }
