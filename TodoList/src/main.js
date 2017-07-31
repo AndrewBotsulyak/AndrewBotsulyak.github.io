@@ -16,6 +16,17 @@ const build = new TodoBuilder(container);
 start();
 
 
+if('serviceWorker' in navigator){
+
+    navigator.serviceWorker.register('/src/js/sw/sw.js')
+        .then((reg) => {
+            console.log(`Registration succeeded. Scope is ${error.scope}`);
+        })
+        .catch(err => {
+            console.log(`Registration is failed ${err}`);
+        });
+}
+
 
 async function start(){
     if(build.hasLocalStorage()){
@@ -24,8 +35,6 @@ async function start(){
     else{
         await build.createTodo();
     }
-    let pl = document.querySelector('.todo-placeholder');
-    console.log(pl);
 } 
 
 
