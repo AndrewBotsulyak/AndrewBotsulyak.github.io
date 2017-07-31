@@ -18,7 +18,7 @@ start();
 
 if('serviceWorker' in navigator){
 
-    navigator.serviceWorker.register('/sw.js')
+    navigator.serviceWorker.register('/ToDoList/sw.js')
         .then((reg) => {
             console.log(`Registration succeeded. Scope is ${reg.scope}`);
         })
