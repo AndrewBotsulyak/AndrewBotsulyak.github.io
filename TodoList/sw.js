@@ -1,8 +1,8 @@
 const CACHE_NAME = 'my-site-cache-v1';
 const urlsToCache = [
   '/',
-  '/dist/bundle.css',
-  '/dist/bundle.js'
+  '/TodoList/dist/bundle.css',
+  '/TodoList/dist/bundle.js'
 ];
 
 self.addEventListener('install', function(event) {
