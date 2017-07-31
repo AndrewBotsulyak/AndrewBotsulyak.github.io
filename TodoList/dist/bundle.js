@@ -808,7 +808,7 @@ start();
 
 if ('serviceWorker' in navigator) {
 
-    navigator.serviceWorker.register('/serviceWorker/sw.js').then(function (reg) {
+    navigator.serviceWorker.register('/sw.js').then(function (reg) {
         console.log('Registration succeeded. Scope is ' + error.scope);
     }).catch(function (err) {
         console.log('Registration is failed ' + err);
