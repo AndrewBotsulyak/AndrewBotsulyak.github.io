@@ -1,5 +1,5 @@
-const CACHE_NAME = 'my-site-cache-v1';
-const urlsToCache = [
+let CACHE_NAME = 'my-site-cache-v1';
+let urlsToCache = [
   '/',
   '/TodoList/dist/bundle.css',
   '/TodoList/dist/bundle.js'
