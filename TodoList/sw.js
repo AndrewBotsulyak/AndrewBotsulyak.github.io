@@ -28,3 +28,17 @@ this.addEventListener('fetch', (event) => {
           })
   )
 });
+
+this.addEventListener('activate', function(event) {
+  const newCache = 'v2';
+
+  event.waitUntil(
+    caches.keys().then(function(keyList) {
+      return Promise.all(keyList.map((key) => {
+        if (newCache !== key) {
+          return caches.delete(key);
+        }
+      }));
+    })
+  );
+});
