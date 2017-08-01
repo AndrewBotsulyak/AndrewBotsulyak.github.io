@@ -28,12 +28,12 @@ if('serviceWorker' in navigator){
 }
 
 
-async function start(){
+function start(){
     if(build.hasLocalStorage()){
-        await build.createTodoFromStorage();
+        build.createTodoFromStorage();
     }
     else{
-        await build.createTodo();
+        build.createTodo();
     }
 } 
 
