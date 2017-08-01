@@ -1,6 +1,6 @@
 this.addEventListener('install', function(event) {
   event.waitUntil(
-    caches.open('v1').then(function(cache) {
+    caches.open('v3').then(function(cache) {
       return cache.addAll([
         '/TodoList/dist/bundle.css',
         '/TodoList/dist/bundle.js',
@@ -18,7 +18,7 @@ this.addEventListener('fetch', (event) => {
     caches.match(event.request)
       .catch(() => fetch(event.request))
         .then((response) => {
-          return caches.open('v2')
+          return caches.open('v3')
             .then((cache) => {
               cache.put(event.request, response.clone());
               return response;
@@ -29,16 +29,16 @@ this.addEventListener('fetch', (event) => {
   )
 });
 
-// this.addEventListener('activate', function(event) {
-//   var cacheWhitelist = ['v2'];
+this.addEventListener('activate', function(event) {
+  var cacheWhitelist = ['v3'];
 
-//   event.waitUntil(
-//     caches.keys().then(function(keyList) {
-//       return Promise.all(keyList.map(function(key) {
-//         if (cacheWhitelist.indexOf(key) === -1) {
-//           return caches.delete(key);
-//         }
-//       }));
-//     })
-//   );
-// });
+  event.waitUntil(
+    caches.keys().then(function(keyList) {
+      return Promise.all(keyList.map(function(key) {
+        if (cacheWhitelist.indexOf(key) === -1) {
+          return caches.delete(key);
+        }
+      }));
+    })
+  );
+});
