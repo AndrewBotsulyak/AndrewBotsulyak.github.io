@@ -5,7 +5,7 @@ this.addEventListener('install', function(event) {
         '/TodoList/dist/bundle.css',
         '/TodoList/dist/bundle.js',
         '/TodoList/index.html',
-        /\/TodoList\/dist\/images\/*/gi
+        '/TodoList/dist/images/'
       ]);
     })
   );
