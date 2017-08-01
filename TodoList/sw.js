@@ -20,8 +20,8 @@ this.addEventListener('fetch', (event) => {
         .then((response) => {
           return caches.open('v1')
             .then((cache) => {
-              cache.put(event.request, response);
-              return response.clone();
+              cache.put(event.request, response.clone());
+              return response;
             })
         }).catch(() => {
             return caches.match('/TodoList/index.html');
