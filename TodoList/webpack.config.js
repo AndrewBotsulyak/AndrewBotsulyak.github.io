@@ -41,8 +41,9 @@ module.exports = {
                 loader: "json-loader"
             },
             {
-                 test: /\.(jpe?g|png|gif|svg|jpg)$/i,
-                loader: "url-loader?limit=1&mimetype=img/png&name=/images/[hash].[ext]"
+                test: /\.(jpe?g|png|gif|svg|jpg)$/i,
+                loader: 'file-loader?name=/images/[name].[ext]'
+               // loader: "url-loader?limit=1&mimetype=img/png&name=/images/[hash].[ext]"
             },
             {
               test: /\.html$/,

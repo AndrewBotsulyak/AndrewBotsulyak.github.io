@@ -160,7 +160,7 @@ body {
   background-color: #fff; }
 
 .check-label-active {
-  background-image: url(.//images/be180e46de1aaf1c5e18ecd28c935173.svg);
+  background-image: url(.//images/checked.svg);
   background-size: 70%;
   background-repeat: no-repeat;
   background-position: center;
@@ -206,7 +206,7 @@ body {
 .edit {
   width: 20px;
   height: 20px;
-  background-image: url(.//images/a954e2027937b9975d42bb056b240abb.svg);
+  background-image: url(.//images/edit.svg);
   background-size: cover;
   order: 2;
   cursor: pointer;
@@ -302,6 +302,6 @@ body {
   height: 19px;
   margin: auto;
   box-sizing: border-box;
-  background-image: url(.//images/9020635a3603de8bdb492fcbef0e3ceb.svg);
+  background-image: url(.//images/add.svg);
   background-size: cover;
   background-repeat: no-repeat; }

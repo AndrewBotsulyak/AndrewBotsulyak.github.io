@@ -5,7 +5,9 @@ this.addEventListener('install', function(event) {
         '/TodoList/dist/bundle.css',
         '/TodoList/dist/bundle.js',
         '/TodoList/index.html',
-        '/TodoList/dist/images/'
+        '/TodoList/dist/images/add.svg',
+        '/TodoList/dist/images/checked.svg',
+        '/TodoList/dist/images/edit.svg'
       ]);
     })
   );
