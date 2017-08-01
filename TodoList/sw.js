@@ -30,12 +30,12 @@ this.addEventListener('fetch', (event) => {
 });
 
 this.addEventListener('activate', function(event) {
-  const newCache = 'v2';
+  var cacheWhitelist = ['v2'];
 
   event.waitUntil(
     caches.keys().then(function(keyList) {
-      return Promise.all(keyList.map((key) => {
-        if (newCache !== key) {
+      return Promise.all(keyList.map(function(key) {
+        if (cacheWhitelist.indexOf(key) === -1) {
           return caches.delete(key);
         }
       }));
