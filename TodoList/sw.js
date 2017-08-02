@@ -7,7 +7,8 @@ this.addEventListener('install', function(event) {
         '/TodoList/index.html',
         '/TodoList/dist/images/add.svg',
         '/TodoList/dist/images/checked.svg',
-        '/TodoList/dist/images/edit.svg'
+        '/TodoList/dist/images/edit.svg',
+        '/TodoList/favicon/manifest.json'
       ]);
     })
   );
