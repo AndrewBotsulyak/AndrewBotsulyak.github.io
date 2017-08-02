@@ -3,18 +3,18 @@
 
 
 .todo{
-	flex: 1 0 310px;
+	flex: 1 0 290px;
 	align-content: flex-start;
 	margin: 5px 5px;
-	max-width: 620px;
+	max-width: 600px;
 	height: 100%;
 	background-color: #fff;
 	border-radius: 2px;
 
-	@extend .mat-elevation-2dp;
+	@include mat-elevation-2dp;
 
 	&:hover{
-		@extend .mat-elevation-8dp;
+		@include mat-elevation-8dp;
 	}
 }
 

@@ -1,4 +1,5 @@
-@import 'vars.scss'; 
+@import 'vars.scss';
+@import './shadows.scss';
 
 .toolbar{
     width: 100%;
@@ -9,6 +10,7 @@
     color: white;
     background-color: $mainColor;
     z-index: 10;
+    @include mat-elevation-2dp;
 }
 
 .main-title{

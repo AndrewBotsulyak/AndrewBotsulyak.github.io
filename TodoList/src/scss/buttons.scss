@@ -25,7 +25,7 @@
 	}
 
 	&:active{
-		@extend .mat-elevation-6dp;
+		@include mat-elevation-6dp;
 	}
 
 }
@@ -42,14 +42,14 @@
 	outline: none;
     cursor: pointer;
     z-index: 1;
-    @extend .mat-elevation-6dp;
+    @include mat-elevation-6dp;
 
     &:hover{
         background-color: darken( $mainColor, 5%);
     }
 
     &:active{
-        @extend .mat-elevation-12dp;
+        @include mat-elevation-12dp;
     }
 }
 
