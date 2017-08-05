@@ -5,7 +5,7 @@ const PATH_PROD = [
         '/TodoList/dist/images/add.svg',
         '/TodoList/dist/images/checked.svg',
         '/TodoList/dist/images/edit.svg',
-        '/TodoList/favicon/manifest.json'
+        '/TodoList/manifest.json'
 ];
 
 const PATH_DEV = [
