@@ -457,7 +457,7 @@ const container = document.querySelector('.content-canvas');
 const build = new __WEBPACK_IMPORTED_MODULE_6__js_todoBuilder__["a" /* default */](container);
 start();
 if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('../sw.js') ///TodoList/sw.js
+    navigator.serviceWorker.register('/TodoList/sw.js') ///TodoList/sw.js
         .then((reg) => {
         console.log(`Registration succeeded. Scope is ${reg.scope}`);
     })
