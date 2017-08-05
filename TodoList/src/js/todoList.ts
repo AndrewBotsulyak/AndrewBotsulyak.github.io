@@ -1,5 +1,5 @@
-import TodoListItem from './todoListItem.js';
-import { createItemElement } from './todoListItem';
+import TodoListItem from './todoListItem';
+import { createItemElement, IStateListItem } from './todoListItem';
 
 const PLACEHOLDER_TITLE = 'Тема заметок...';
 const PLACEHOLDER_INPUT = 'Заметка...'
@@ -30,7 +30,10 @@ function createTodoElement(){
 
 export { createTodoElement };
 
-
+export interface IStateList{
+	title: string,
+	arrItems: Array<IStateListItem>
+}
 
 /**
  * Class represents TodoList.
@@ -44,27 +47,44 @@ export { createTodoElement };
  */
 export default class TodoList{
 
-	constructor(todo = null, title = '', arrItems = [] ){
+	todoElem: HTMLDivElement;
+	input: HTMLInputElement;
+	add: HTMLInputElement;
+	ul: HTMLUListElement;
+	clearList: HTMLButtonElement;
+	titleElem: HTMLInputElement;
+	deleteTodo: HTMLDivElement;
+	wrapInput: HTMLDivElement;
+	labelMain: HTMLLabelElement;
+	wrapMainInput: HTMLDivElement;
+	label: HTMLLabelElement;
+	title: string;
+	arrItems: Array<TodoListItem>;
+	parent: HTMLDivElement;
+	state: IStateList;
+
+
+	constructor(todo: HTMLDivElement = null, title: string = '', arrItems:Array<any> = [] ){
 
 		this.todoElem = todo;
-		this.input = this.todoElem.querySelector('.main-input');
-		this.add = this.todoElem.querySelector('.add-item');
-		this.ul = this.todoElem.querySelector('.todo-list');
-		this.clearList = this.todoElem.querySelector('.clearAll');
-		this.titleElem = this.todoElem.querySelector('.title');
-		this.deleteTodo = this.todoElem.querySelector('.delete-todo');
-		this.wrapInput = this.todoElem.querySelector('.wrap-title-input');
-		this.labelMain =  this.todoElem.querySelector('.main-input-label');
-		this.wrapMainInput = this.todoElem.querySelector('.wrap-main-input');
-		this.label = this.todoElem.querySelector('.title-label');
+		this.input = <HTMLInputElement>this.todoElem.querySelector('.main-input');
+		this.add = <HTMLInputElement>this.todoElem.querySelector('.add-item');
+		this.ul = <HTMLUListElement>this.todoElem.querySelector('.todo-list');
+		this.clearList = <HTMLButtonElement>this.todoElem.querySelector('.clearAll');
+		this.titleElem = <HTMLInputElement>this.todoElem.querySelector('.title');
+		this.deleteTodo = <HTMLDivElement>this.todoElem.querySelector('.delete-todo');
+		this.wrapInput = <HTMLDivElement>this.todoElem.querySelector('.wrap-title-input');
+		this.labelMain =  <HTMLLabelElement>this.todoElem.querySelector('.main-input-label');
+		this.wrapMainInput = <HTMLDivElement>this.todoElem.querySelector('.wrap-main-input');
+		this.label = <HTMLLabelElement>this.todoElem.querySelector('.title-label');
 
 		this.setTitle(title);		
 		
 		this.title = title;
 		this.arrItems = [];
 
-		this.parent = (() => {
-			let build = this.todoElem.parentElement;
+		this.parent = <HTMLDivElement>(() => {
+			let build: Element = this.todoElem.parentElement;
 			while(!build.classList.contains('content-canvas')){
 				build = build.parentElement;
 			}
@@ -76,11 +96,11 @@ export default class TodoList{
 			arrItems
 		}
 		
-		this.deleteTodo.addEventListener('click', (event) => this.onRemove(event));
+		this.deleteTodo.addEventListener('click', (event: Event) => this.onRemove(event));
 
-		this.titleElem.addEventListener('keyup', (event) => this.onType(event));
+		this.titleElem.addEventListener('keyup', (event: Event) => this.onType(event));
 
-		this.wrapInput.addEventListener('click', (event) => {
+		this.wrapInput.addEventListener('click', (event: Event) => {
 			if(event.target == this.titleElem || event.target == this.label){
 				if(!this.title){
 					this.titleElem.focus();								// focus title
@@ -90,7 +110,7 @@ export default class TodoList{
 			}
 		});
 
-		this.titleElem.addEventListener('focusout', (event) => {
+		this.titleElem.addEventListener('focusout', (event: Event) => {
 			if(!this.title){
 				this.animLabel(false, 'label');								// reverse label effect 
 			}
@@ -98,14 +118,14 @@ export default class TodoList{
 		});			
 
 		//	subscribe on TodoListItem's 'closeItem' event
-		this.ul.addEventListener('closeItem', (event) => this.onDeleteItem(event));  
+		this.ul.addEventListener('closeItem', (event: CustomEvent) => this.onDeleteItem(event));  
 
-		this.todoElem.addEventListener('submit', (event) => this.onAddItem(event));
+		this.todoElem.addEventListener('submit', (event: Event) => this.onAddItem(event));
 		
-		this.clearList.addEventListener('click', (event) => this.clearAll(event));
+		this.clearList.addEventListener('click', (event: Event) => this.clearAll(event));
 
 
-		this.wrapMainInput.addEventListener('click', (event) => {
+		this.wrapMainInput.addEventListener('click', (event: Event) => {
 			if(event.target == this.labelMain || event.target == this.input){
 				if(!this.input.value){
 					this.input.focus();						
@@ -115,7 +135,7 @@ export default class TodoList{
 			}
 		});
 
-		this.input.addEventListener('focusout', (event) => {
+		this.input.addEventListener('focusout', (event: Event) => {
 			if(!this.input.value){
 				this.animLabel(false, 'labelMain');								 
 			}
@@ -125,7 +145,7 @@ export default class TodoList{
 
 	}
 
-	setTitle(text){
+	setTitle(text: string): void{
 		if(text){
 			this.animLabel(true, 'label');
 			this.titleElem.value = text;
@@ -133,8 +153,8 @@ export default class TodoList{
 		}
 	}
 
-	animLabel(bool, elem){
-		if(bool){
+	animLabel(flag: boolean, elem: string): void {
+		if(flag){
 			this[elem].classList.add('label-move');
 		}
 		else{
@@ -142,13 +162,13 @@ export default class TodoList{
 		}
 	}
 
-	setState(newState){
+	setState(newState: any): void{
 		this.state = Object.assign({}, this.state, newState);
 		this.dispStateChangeEvent();
 	}
 
-	onRemove(event){
-		let closeEvent = new CustomEvent('TodoList.remove', {
+	onRemove(event: Event): void{
+		let closeEvent: Event = new CustomEvent('TodoList.remove', {
 			 	bubbles: true,
 				cancelable: true,
 				detail:{
@@ -159,13 +179,13 @@ export default class TodoList{
 		this.parent.removeChild(this.todoElem);
 	}
 
-	onType(event){
+	onType(event: Event): void{
 		this.title = this.titleElem.value;
 		this.setState({ title: this.title });
 	}
 
-	dispStateChangeEvent(){
-		const stateEvent = new CustomEvent('todostatechange',{
+	dispStateChangeEvent(): void{
+		const stateEvent: Event = new CustomEvent('todostatechange',{
 			bubbles: true,
 			detail:{
 				item: this,
@@ -175,7 +195,7 @@ export default class TodoList{
 		 this.todoElem.dispatchEvent(stateEvent);
 	}
 
-	createFromStorage() {
+	createFromStorage(): void {
 		this.state.arrItems.forEach(el => {
 			const newElem = this.ul.appendChild(createItemElement());
 			const objItem =  new TodoListItem(newElem, el.checked, el.content);
@@ -183,38 +203,38 @@ export default class TodoList{
 		});
 	}
 
-	onAddItem(event) {
+	onAddItem(event: Event): void {
 		event.preventDefault();
 		if(!this.isInputEmpty()){
-			const newElem = this.ul.appendChild(createItemElement());
-			const objItem =  new TodoListItem(newElem, null, this.input.value);
+			const newElem: HTMLLIElement = this.ul.appendChild(createItemElement());
+			const objItem: TodoListItem =  new TodoListItem(newElem, null, this.input.value);
 			this.arrItems.push(objItem);
 			this.setState({ arrItems: this.arrItems.map(el => el.state)});
 		}
 	}
 
-	isInputEmpty() {
+	isInputEmpty(): boolean {
 		return (this.input.value) ? false : true;
 	}
 
 	/**
 	 * @param {Object} obj - obj with styles  
 	 */
-	setStyle(obj){
+	setStyle(obj: any): void{
 		for(let prop in obj){
 			this.todoElem.style[prop] = obj[prop];
 		}
 	}
 
-	onDeleteItem(event) {
-		const elem = event.detail.item;
+	onDeleteItem(event: CustomEvent): void {
+		const elem: TodoListItem = event.detail.item;
 		this.arrItems = this.arrItems.filter(el => el !== elem);
 		
 		this.setState({ arrItems: this.arrItems.map(el => el.state)});
 	}
 
 	// clear list of items
-	clearAll(event){
+	clearAll(event: Event): void{
 		if(this.arrItems.length !== 0){
 			this.arrItems.forEach(elem => elem.remove());
 			this.arrItems = [];

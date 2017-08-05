@@ -7,7 +7,8 @@
     position: fixed;
     top:0;
     left:0;
-    color: white;
+    //color: white;
+    color: black;
     background-color: $mainColor;
     z-index: 10;
     @include mat-elevation-2dp;

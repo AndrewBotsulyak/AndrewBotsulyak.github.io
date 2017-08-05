@@ -1,5 +1,13 @@
-import TodoList from './todoList.js';
-import { createTodoElement } from './todoList';
+import TodoList from './todoList';
+import { createTodoElement, IStateList } from './todoList';
+
+interface IState{
+	todosArr: Array<IStateList>
+}
+
+interface ICustomEvent{
+
+}
 
 /**
  * class create all TodoLists
@@ -11,11 +19,16 @@ import { createTodoElement } from './todoList';
  */
 export default class TodoBuilder{
 
-	constructor(container){
+	containerElem: HTMLDivElement;
+	todosArr: Array<TodoList>;
+	btnAddTodo: HTMLButtonElement;
+	state: IState;
+
+	constructor(container: HTMLDivElement){
 
 		this.containerElem = container;
 		this.todosArr = [];
-		this.btnAddTodo = document.querySelector('.build-todo');
+		this.btnAddTodo = <HTMLButtonElement>document.querySelector('.build-todo');
 
 		
 
@@ -23,15 +36,15 @@ export default class TodoBuilder{
 			todosArr: []
 		}
 
-		this.btnAddTodo.addEventListener('click', (event) => this.onBuild(event));
+		this.btnAddTodo.addEventListener('click', (event: Event) => this.onBuild(event));
 
-		this.containerElem.addEventListener('TodoList.remove', (event) => this.removeTodo(event));
+		this.containerElem.addEventListener('TodoList.remove', (event: CustomEvent) => this.removeTodo(event));
 
-		this.containerElem.addEventListener('todostatechange', (event) => this.updateStorage());
+		this.containerElem.addEventListener('todostatechange', (event: Event) => this.updateStorage(event));
 
 	}
 
-	updateStorage(){
+	updateStorage(event: Event): void{
 
 		this.state.todosArr.forEach((todo, index) => {
 			todo.arrItems = this.todosArr[index].arrItems.map(el => {
@@ -43,13 +56,13 @@ export default class TodoBuilder{
 		localStorage.setItem('todos', JSON.stringify(this.state));
 	}
 
-	onBuild(event){
+	onBuild(event: Event): void{
 		this.createTodo();
 	}
 
-	removeTodo(event){
-		let elem = event.detail.item;
-		let index = this.todosArr.findIndex(el => el === elem);		
+	removeTodo(event: CustomEvent): void{
+		const elem: TodoList = event.detail.item;
+		const index: number = this.todosArr.findIndex(el => el === elem);		
 		this.todosArr = this.todosArr.filter(el => el !== elem);
 		this.state.todosArr = this.state.todosArr.filter((el, i) => i !== index);
 		if(this.todosArr.length === 0){
@@ -63,9 +76,9 @@ export default class TodoBuilder{
 	/**
 	 * @return {TodoList} just created.
 	 */
-	createTodo(){
-		let todoElem = this.containerElem.appendChild(createTodoElement()); 
-		const todo = new TodoList(todoElem);			 
+	createTodo(): TodoList{
+		let todoElem: HTMLDivElement = this.containerElem.appendChild(createTodoElement()); 
+		const todo: TodoList = new TodoList(todoElem);			 
 		todo.createFromStorage();
 		this.todosArr.push(todo);
 
@@ -75,18 +88,18 @@ export default class TodoBuilder{
 		return todo;
 	}
 
-	createTodoFromStorage(){
+	createTodoFromStorage(): void{
 		let state = JSON.parse(localStorage.getItem('todos'));
 		this.state = state;
 		this.state.todosArr.forEach(el => {
-			let todoElem = this.containerElem.appendChild(createTodoElement()); 
-			const todo = new TodoList(todoElem, el.title, el.arrItems);			 
+			let todoElem: HTMLDivElement = this.containerElem.appendChild(createTodoElement()); 
+			const todo: TodoList = new TodoList(todoElem, el.title, el.arrItems);			 
 			todo.createFromStorage();
 			this.todosArr.push(todo);
 		});
 	}
 
-	hasLocalStorage(){
+	hasLocalStorage(): boolean{
 		return localStorage.getItem('todos')? true : false;
 	}
 
@@ -94,8 +107,8 @@ export default class TodoBuilder{
 	 * @param  {Number} count - quantity of new TodoLists.
 	 * @return {Array} array of elements which has just been added in DOM.
 	 */
-	createTodos(count){
-		let arr = [];
+	createTodos(count: number): Array<TodoList>{
+		let arr: Array<TodoList> = [];
 		for(let i = 0; i < count; i++){
 			arr.push(this.createTodo());
 		}

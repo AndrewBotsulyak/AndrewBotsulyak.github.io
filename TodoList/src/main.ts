@@ -8,17 +8,17 @@ import './scss/toolbar.scss';
 
 import './scss/buttons.scss';
 
-import TodoBuilder from './js/todoBuilder.js'; 
+import TodoBuilder from './js/todoBuilder'; 
 
-const container = document.querySelector('.content-canvas');
+const container = <HTMLDivElement>document.querySelector('.content-canvas');
 
-const build = new TodoBuilder(container);
+const build: TodoBuilder = new TodoBuilder(container);
 start();
 
 
 if('serviceWorker' in navigator){
 
-    navigator.serviceWorker.register('/TodoList/sw.js')
+    navigator.serviceWorker.register('../sw.js') ///TodoList/sw.js
         .then((reg) => {
             console.log(`Registration succeeded. Scope is ${reg.scope}`);
         })

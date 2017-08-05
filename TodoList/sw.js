@@ -1,20 +1,32 @@
-this.addEventListener('install', function(event) {
-  event.waitUntil(
-    caches.open('v3').then(function(cache) {
-      return cache.addAll([
+const PATH_PROD = [
         '/TodoList/dist/bundle.css',
-        '/TodoList/dist/bundle.js',
+        '/TodoList/dist/main.js',
         '/TodoList/index.html',
         '/TodoList/dist/images/add.svg',
         '/TodoList/dist/images/checked.svg',
         '/TodoList/dist/images/edit.svg',
         '/TodoList/favicon/manifest.json'
-      ]);
+];
+
+const PATH_DEV = [
+        '/bundle.css',
+        '/main.js',
+        '/index.html',
+        '/images/add.svg',
+        '/images/checked.svg',
+        '/images/edit.svg',
+        '../manifest.json'
+];
+
+self.addEventListener('install', function(event) {
+  event.waitUntil(
+    caches.open('v3').then(function(cache) {
+      return cache.addAll(PATH_PROD);
     })
   );
 });
 
-this.addEventListener('fetch', (event) => {
+self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(event.request)
       .catch(() => fetch(event.request))
@@ -30,8 +42,8 @@ this.addEventListener('fetch', (event) => {
   )
 });
 
-this.addEventListener('activate', function(event) {
-  var cacheWhitelist = ['v3'];
+self.addEventListener('activate', function(event) {
+  let cacheWhitelist = ['v3'];
 
   event.waitUntil(
     caches.keys().then(function(keyList) {

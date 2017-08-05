@@ -16,6 +16,12 @@ function createItemElement(){
 
 export { createItemElement };
 
+export interface IStateListItem{
+	checked: boolean;
+	content: string;
+}
+
+
 /**
  * Class represents TodoListItem.
  * @param {HTMLElement} item - DOM Element (<li>).
@@ -27,16 +33,25 @@ export { createItemElement };
  */
 export default class TodoListItem{
 
+	itemElem: HTMLLIElement;
+	input: HTMLDivElement;
+	delete: HTMLDivElement;
+	check: HTMLInputElement;
+	editElem: HTMLDivElement;
+	labelElem: HTMLLabelElement;
+	parent: HTMLUListElement;
+	state: IStateListItem;
+
 	constructor( item = null, checked = false, content = '' ){
 
 		this.itemElem = item;
-		this.input = this.itemElem.querySelector('.edit-input');
-		this.delete = this.itemElem.querySelector('.delete');
-		this.check = this.itemElem.querySelector('.check');
-		this.editElem = this.itemElem.querySelector('.edit'); 
-		this.labelElem = this.itemElem.querySelector('.check-label');
+		this.input = <HTMLDivElement>this.itemElem.querySelector('.edit-input');
+		this.delete = <HTMLDivElement>this.itemElem.querySelector('.delete');
+		this.check = <HTMLInputElement>this.itemElem.querySelector('.check');
+		this.editElem = <HTMLDivElement>this.itemElem.querySelector('.edit'); 
+		this.labelElem = <HTMLLabelElement>this.itemElem.querySelector('.check-label');
 
-		this.parent = (() => {
+		this.parent = <HTMLUListElement>(() => {
 			let todo = this.itemElem.parentElement;
 			while(!todo.classList.contains('todo-list')){
 				todo = todo.parentElement;
@@ -54,23 +69,23 @@ export default class TodoListItem{
 		 
 		// create Custom Event
 
-		this.input.addEventListener('keyup', (event) => this.onType(event));
+		this.input.addEventListener('keyup', (event: Event) => this.onType(event));
 
-		this.editElem.addEventListener('click', (event) => this.onEdit(event));
+		this.editElem.addEventListener('click', (event: Event) => this.onEdit(event));
 
-		this.check.addEventListener('click', (event) => this.ClickCheckbox(event));
+		this.check.addEventListener('click', (event: Event) => this.ClickCheckbox(event));
 
-		this.delete.addEventListener('click', (event) => this.onDelete(event));
+		this.delete.addEventListener('click', (event: Event) => this.onDelete(event));
 	}
 
 
 
-	onType(event){
+	onType(event: Event): void{
 		this.setState({content: this.input.textContent});
 	}
 
-	dispStateChangeEvent(){
-		const stateEvent = new CustomEvent('todostatechange',{
+	dispStateChangeEvent(): void{
+		const stateEvent: Event = new CustomEvent('todostatechange',{
 			bubbles: true,
 			detail:{
 				item: this,
@@ -80,17 +95,12 @@ export default class TodoListItem{
 		 this.itemElem.dispatchEvent(stateEvent);
 	}
 
-	createFromStorage(){
-		this.setValue(content);
-		this.check.checked = this.state.checked;
-	}
-
-	setState(newState){
+	setState(newState: any): void{
 		this.state = Object.assign({}, this.state, newState);
 		this.dispStateChangeEvent();
 	}
 
-	ClickCheckbox(event) {
+	ClickCheckbox(event: Event): void {
 		if(this.isEditable()) this.toggleEdit();
 		if(this.isChecked()){
 			this.input.style.textDecoration = 'line-through';
@@ -107,13 +117,13 @@ export default class TodoListItem{
 
 	}
 
-	isChecked() {
+	isChecked(): boolean {
 		return this.check.checked; 
 	}
 
-	setChecked(bool){
-		this.check.checked = bool;
-		if(bool){
+	setChecked(flag: boolean): void{
+		this.check.checked = flag;
+		if(flag){
 			this.input.style.textDecoration = 'line-through';
 			this.setEditable(false);
 			this.labelElem.classList.add('check-label-active');
@@ -124,8 +134,8 @@ export default class TodoListItem{
 		}
 	}
 
-	setEditable(bool){
-		if(bool){
+	setEditable(flag: boolean): void{
+		if(flag){
 			this.input.contentEditable = 'true';
 		}
 		else{
@@ -133,11 +143,11 @@ export default class TodoListItem{
 		}
 	}
 
-	isEditable(){
+	isEditable(): boolean{
 		return this.input.contentEditable === 'true';
 	}
 
-	toggleEdit(){
+	toggleEdit(): void{
 		if(!this.isEditable()){
 			this.setEditable(true);
 			this.input.style.outline = 'auto 5px rgb(77, 144, 254)';
@@ -149,14 +159,14 @@ export default class TodoListItem{
 	}
 
 	// click on 'this.editElem' callback
-	onEdit(event){
+	onEdit(event: Event): void{
 		if(this.isChecked()) return;
 
 		this.toggleEdit();
 	}
 
 	// click on 'this.delete' callback, dispatch 'closeItem' event.
-	onDelete(event) {					
+	onDelete(event: Event): void {					
 		let closeEvent = new CustomEvent('closeItem', {
 			 	bubbles: true,
 				cancelable: true,
@@ -168,19 +178,19 @@ export default class TodoListItem{
 		this.remove();  
 	}
 
-	remove(){
+	remove(): TodoListItem{
 		this.parent.removeChild(this.itemElem);
 		return this;
 	}
 
-	getItem() {
+	getItem(): HTMLLIElement{
 		return this.itemElem;
 	}
 
 	/**
 	 * @param {Object} obj - obj with styles  
 	 */
-	setStyle(obj){
+	setStyle(obj: any){
 		for(let prop in obj){
 			this.itemElem.style[prop] = obj[prop];
 		}
@@ -189,7 +199,7 @@ export default class TodoListItem{
 	/**
 	 * @param {string} text - input value.
 	 */
-	setValue(text = '') {
+	setValue(text: string = '') {
 		this.input.textContent = text;
 	}
 
