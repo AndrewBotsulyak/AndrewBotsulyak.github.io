@@ -20,9 +20,11 @@ const PATH_DEV = [
         '/manifest.json'
 ];
 
+const VERSION = 'v4';
+
 self.addEventListener('install', function(event) {
   event.waitUntil(
-    caches.open('v3').then(function(cache) {
+    caches.open(VERSION).then(function(cache) {
       return cache.addAll(PATH_PROD);
     })
   );
@@ -33,7 +35,7 @@ self.addEventListener('fetch', (event) => {
     caches.match(event.request)
       .catch(() => fetch(event.request))
         .then((response) => {
-          return caches.open('v3')
+          return caches.open(VERSION)
             .then((cache) => {
               cache.put(event.request, response.clone());
               return response;
@@ -45,7 +47,7 @@ self.addEventListener('fetch', (event) => {
 });
 
 self.addEventListener('activate', function(event) {
-  let cacheWhitelist = ['v3'];
+  let cacheWhitelist = [VERSION];
 
   event.waitUntil(
     caches.keys().then(function(keyList) {
