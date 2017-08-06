@@ -41,7 +41,7 @@ self.addEventListener('fetch', (event) => {
               return response;
             })
         }).catch(() => {
-            return caches.match('/TodoList/index.html');
+            return caches.match('/index.html');
           })
   )
 });
