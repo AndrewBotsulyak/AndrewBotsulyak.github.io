@@ -219,11 +219,9 @@ export class TodoList{
 	onAddItem(event: Event): void {
 		event.preventDefault();
 		if(!this.isInputEmpty()){
-			import(
-			/* webpackChunkName: "todo-item" */
-			'./todoListItem')
+			import(/* webpackChunkName: "todo-item" */ './todoListItem')
 				.then((module) => {
-					//debugger;
+					
 					TodoListItem = module.TodoListItem;
 					createItemElement = module.createItemElement;
 
