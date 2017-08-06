@@ -1,8 +1,14 @@
-import TodoListItem from './todoListItem';
-import { createItemElement, IStateListItem } from './todoListItem';
+// import TodoListItem from './todoListItem';
+// import { createItemElement, IStateListItem } from './todoListItem';
+
+import { IStateList, IStateListItem } from './IStates';
+
+
+let TodoListItem = null,
+ 	createItemElement = null;
 
 const PLACEHOLDER_TITLE = 'Тема заметок...';
-const PLACEHOLDER_INPUT = 'Заметка...'
+const PLACEHOLDER_INPUT = 'Заметка...';
 
 function createTodoElement(){
 	const div = document.createElement('div');
@@ -30,10 +36,9 @@ function createTodoElement(){
 
 export { createTodoElement };
 
-export interface IStateList{
-	title: string,
-	arrItems: Array<IStateListItem>
-}
+
+
+
 
 /**
  * Class represents TodoList.
@@ -45,7 +50,7 @@ export interface IStateList{
  * @property {HTMLElement} ul - container of TodoListItems (<li>).
  * @property {Array} arrItems - array with TodoListItems. 
  */
-export default class TodoList{
+export class TodoList{
 
 	todoElem: HTMLDivElement;
 	input: HTMLInputElement;
@@ -59,12 +64,12 @@ export default class TodoList{
 	wrapMainInput: HTMLDivElement;
 	label: HTMLLabelElement;
 	title: string;
-	arrItems: Array<TodoListItem>;
+	arrItems: Array<any>;
 	parent: HTMLDivElement;
 	state: IStateList;
 
 
-	constructor(todo: HTMLDivElement = null, title: string = '', arrItems:Array<any> = [] ){
+	constructor(todo: HTMLDivElement = null, title: string = '', arrItems:Array<IStateListItem> = [] ){
 
 		this.todoElem = todo;
 		this.input = <HTMLInputElement>this.todoElem.querySelector('.main-input');
@@ -162,7 +167,7 @@ export default class TodoList{
 		}
 	}
 
-	setState(newState: any): void{
+	setState(newState: IStateList): void{
 		this.state = Object.assign({}, this.state, newState);
 		this.dispStateChangeEvent();
 	}
@@ -196,20 +201,38 @@ export default class TodoList{
 	}
 
 	createFromStorage(): void {
-		this.state.arrItems.forEach(el => {
-			const newElem = this.ul.appendChild(createItemElement());
-			const objItem =  new TodoListItem(newElem, el.checked, el.content);
-			this.arrItems.push(objItem);
-		});
+		if(this.state.arrItems.length !== 0){
+			import(/* webpackChunkName: "todo-item" */ './todoListItem')
+				.then((module) => {
+					TodoListItem = module.TodoListItem;
+					createItemElement = module.createItemElement;		
+				
+					this.state.arrItems.forEach(el => {
+						const newElem: HTMLLIElement = this.ul.appendChild(createItemElement());
+						const objItem =  new TodoListItem(newElem, el.checked, el.content);
+						this.arrItems.push(objItem);
+					});
+			});
+		}
 	}
 
 	onAddItem(event: Event): void {
 		event.preventDefault();
 		if(!this.isInputEmpty()){
-			const newElem: HTMLLIElement = this.ul.appendChild(createItemElement());
-			const objItem: TodoListItem =  new TodoListItem(newElem, null, this.input.value);
-			this.arrItems.push(objItem);
-			this.setState({ arrItems: this.arrItems.map(el => el.state)});
+			import(
+			/* webpackChunkName: "todo-item" */
+			'./todoListItem')
+				.then((module) => {
+					//debugger;
+					TodoListItem = module.TodoListItem;
+					createItemElement = module.createItemElement;
+
+					const newElem: HTMLLIElement = this.ul.appendChild(createItemElement());
+					const objItem =  new TodoListItem(newElem, null, this.input.value);
+					this.arrItems.push(objItem);
+					this.setState({ arrItems: this.arrItems.map(el => el.state)});
+		
+				});	
 		}
 	}
 
@@ -227,7 +250,7 @@ export default class TodoList{
 	}
 
 	onDeleteItem(event: CustomEvent): void {
-		const elem: TodoListItem = event.detail.item;
+		const elem = event.detail.item;
 		this.arrItems = this.arrItems.filter(el => el !== elem);
 		
 		this.setState({ arrItems: this.arrItems.map(el => el.state)});

@@ -19,6 +19,7 @@
 	background-color: $secondColor;
 	color: black;
 	outline: none;
+	@include mat-elevation-2dp;
 	
 	&:hover{
 		background-color: darken( $secondColor, 5%);

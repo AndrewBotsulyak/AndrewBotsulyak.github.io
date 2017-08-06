@@ -1,9 +1,6 @@
-import TodoList from './todoList';
-import { createTodoElement, IStateList } from './todoList';
+import { TodoList, createTodoElement } from './todoList';
+import { IState, IStateList } from './IStates';
 
-interface IState{
-	todosArr: Array<IStateList>
-}
 
 interface ICustomEvent{
 

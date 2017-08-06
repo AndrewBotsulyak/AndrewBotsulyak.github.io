@@ -8,6 +8,8 @@ import './scss/toolbar.scss';
 
 import './scss/buttons.scss';
 
+import '../manifest.json';
+
 import TodoBuilder from './js/todoBuilder'; 
 
 const container = <HTMLDivElement>document.querySelector('.content-canvas');
@@ -18,7 +20,7 @@ start();
 
 if('serviceWorker' in navigator){
 
-    navigator.serviceWorker.register('/TodoList/sw.js') ///TodoList/sw.js
+    navigator.serviceWorker.register('./sw.js') ///TodoList/sw.js
         .then((reg) => {
             console.log(`Registration succeeded. Scope is ${reg.scope}`);
         })

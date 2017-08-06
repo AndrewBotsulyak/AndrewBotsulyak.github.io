@@ -1,3 +1,6 @@
+import { IStateListItem } from './IStates';
+
+
 function createItemElement(){
 	const li = document.createElement('li');
 	li.classList.add('todo-list--item');
@@ -16,10 +19,6 @@ function createItemElement(){
 
 export { createItemElement };
 
-export interface IStateListItem{
-	checked: boolean;
-	content: string;
-}
 
 
 /**
@@ -31,7 +30,7 @@ export interface IStateListItem{
  * @property {HTMLElement} check - checkbox inside <li>.
  * @property {HTMLElement} editElem -  btn for edit input
  */
-export default class TodoListItem{
+export class TodoListItem{
 
 	itemElem: HTMLLIElement;
 	input: HTMLDivElement;
@@ -95,7 +94,7 @@ export default class TodoListItem{
 		 this.itemElem.dispatchEvent(stateEvent);
 	}
 
-	setState(newState: any): void{
+	setState(newState: IStateListItem): void{
 		this.state = Object.assign({}, this.state, newState);
 		this.dispStateChangeEvent();
 	}

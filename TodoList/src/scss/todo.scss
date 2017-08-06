@@ -28,7 +28,7 @@
 
 .main-input{
 	border: none;
-	border-bottom: 1px solid $mainColor;
+	border-bottom: 1px solid $secondColor;
 
 	& > label{
 		opacity: .5;
@@ -55,7 +55,7 @@
 		position: absolute;
 		bottom: 0px;
 		left: 0;
-		background-color: $mainColor;
+		background-color: $secondColor;
 		transition: .2s ease;
 	}
 
@@ -84,7 +84,7 @@
 	&:after{
 		transform: scale(1);
 	}
-	color: $mainColor;
+	color: $secondColor;
 }
 
 .title-label,

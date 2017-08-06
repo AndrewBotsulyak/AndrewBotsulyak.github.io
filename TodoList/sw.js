@@ -1,6 +1,7 @@
 const PATH_PROD = [
         '/TodoList/dist/bundle.css',
         '/TodoList/dist/main.js',
+        '/TodoList/dist/todo-item.js',
         '/TodoList/index.html',
         '/TodoList/dist/images/add.svg',
         '/TodoList/dist/images/checked.svg',
@@ -11,11 +12,12 @@ const PATH_PROD = [
 const PATH_DEV = [
         '/bundle.css',
         '/main.js',
+        '/todo-item.js',
         '/index.html',
         '/images/add.svg',
         '/images/checked.svg',
         '/images/edit.svg',
-        '../manifest.json'
+        '/manifest.json'
 ];
 
 self.addEventListener('install', function(event) {
@@ -37,7 +39,7 @@ self.addEventListener('fetch', (event) => {
               return response;
             })
         }).catch(() => {
-            return caches.match('/TodoList/index.html');
+            return caches.match('/index.html');
           })
   )
 });

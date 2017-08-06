@@ -13,25 +13,19 @@ module.exports = {
 	output:{
 		path: __dirname + "/dist/",
         filename: "[name].js",
+        chunkFilename: '[name].js'
 	},
 
-    devServer: {
-        contentBase: '/dist/'
-    },
-    
-    
-	//watch:true,
+    devtool: 'inline-source-map',
     
     plugins: [
             new ExtractTextPlugin('bundle.css'),
             new CleanWebpackPlugin(['dist'], {    // вегда актуальные файлы в папке dist(неиспользуемые файлы удаляются)
-                root: __dirname,
-                verbose: true,
-                dry: false
+               
             }),
             new HtmlWebpackPlugin({
                 template: 'index.html',
-                chunks:['main', 'bundle.css']
+                chunk: ['main', 'bundle']
 		    }),
         ],
 
