@@ -25,7 +25,7 @@ const VERSION = 'v4';
 self.addEventListener('install', function(event) {
   event.waitUntil(
     caches.open(VERSION).then(function(cache) {
-      return cache.addAll(PATH_DEV);
+      return cache.addAll(PATH_PROD);
     })
   );
 });
