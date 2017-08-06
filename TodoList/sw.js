@@ -1,11 +1,11 @@
 const PATH_PROD = [
-        '/TodoList/dist/bundle.css',
-        '/TodoList/dist/main.js',
-        '/TodoList/dist/todo-item.js',
+        '/TodoList/bundle.css',
+        '/TodoList/main.js',
+        '/TodoList/todo-item.js',
         '/TodoList/index.html',
-        '/TodoList/dist/images/add.svg',
-        '/TodoList/dist/images/checked.svg',
-        '/TodoList/dist/images/edit.svg',
+        '/TodoList/images/add.svg',
+        '/TodoList/images/checked.svg',
+        '/TodoList/images/edit.svg',
         '/TodoList/manifest.json'
 ];
 
@@ -25,7 +25,7 @@ const VERSION = 'v2';
 self.addEventListener('install', function(event) {
   event.waitUntil(
     caches.open(VERSION).then(function(cache) {
-      return cache.addAll(PATH_DEV);
+      return cache.addAll(PATH_PROD);
     })
   );
 });
