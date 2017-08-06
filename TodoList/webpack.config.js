@@ -12,8 +12,8 @@ module.exports = {
     },
 	output:{
 		path: __dirname + "/dist/",
-        filename: "[name].js"
-        //chunkFilename: '[name].js'
+        filename: "[name].js",
+        chunkFilename: 'dist/[name].js'
 	},
 
     devtool: 'inline-source-map',
