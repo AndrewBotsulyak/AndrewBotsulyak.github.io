@@ -24,10 +24,10 @@ module.exports = {
             new CleanWebpackPlugin(['dist'], {    // вегда актуальные файлы в папке dist(неиспользуемые файлы удаляются)
                
             }),
-            new HtmlWebpackPlugin({
-                template: 'index.html',
-                chunk: ['main', 'bundle']
-		    }),
+            // new HtmlWebpackPlugin({
+            //     template: 'index.html',
+            //     chunk: ['main', 'bundle']
+		    // }),
         ],
 
     resolve: {
