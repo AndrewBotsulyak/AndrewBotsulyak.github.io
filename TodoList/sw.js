@@ -20,7 +20,7 @@ const PATH_DEV = [
         '/manifest.json'
 ];
 
-const VERSION = 'v4';
+const VERSION = 'v1';
 
 self.addEventListener('install', function(event) {
   event.waitUntil(
