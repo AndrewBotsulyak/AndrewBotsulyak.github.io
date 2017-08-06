@@ -13,7 +13,8 @@ module.exports = {
 	output:{
 		path: __dirname + "/dist/",
         filename: "[name].js",
-        chunkFilename: 'dist/[name].js'
+        publicPath: '.',
+        chunkFilename: '[name].js'
 	},
 
     devtool: 'inline-source-map',
